@@ -3,612 +3,573 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>How are you feeling? 🌸</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <title>Her Journey to Captain 🌊</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-
     :root{
-      --bg:#0f0e17;
-      --surface:rgba(255,255,255,0.05);
-      --border:rgba(255,255,255,0.1);
-      --text:#f5f0ff;
-      --sub:rgba(245,240,255,0.5);
-      --accent:#c9a96e;
-      --pill-scale:1;
+      --ocean:#050d1a;
+      --deep:#091628;
+      --navy:#0a1f3d;
+      --gold:#c9a96e;
+      --gold2:#e8c97a;
+      --ivory:#f0ece0;
+      --muted:rgba(240,236,224,0.5);
+      --dim:rgba(240,236,224,0.18);
+      --line:#1a3a5c;
     }
-
     html{scroll-behavior:smooth}
-
     body{
-      background:var(--bg);
-      color:var(--text);
+      background:var(--ocean);
+      color:var(--ivory);
       font-family:'DM Sans',sans-serif;
       font-weight:300;
-      min-height:100vh;
       overflow-x:hidden;
-      transition:background 0.7s cubic-bezier(.4,0,.2,1);
+      min-height:100vh;
     }
 
-    /* ── PARTICLES ── */
-    #bg-canvas{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.4}
-
-    /* ── LAYOUT ── */
-    .page{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:0 1.2rem 4rem}
-
-    /* ── HEADER ── */
-    .header{text-align:center;padding:3.5rem 1rem 2.5rem;max-width:520px}
-    .header-eyebrow{
-      font-size:.68rem;letter-spacing:.35em;text-transform:uppercase;
-      color:var(--accent);margin-bottom:1rem;
-      opacity:0;animation:up .7s .1s forwards
+    /* ── WAVE BG ── */
+    .wave-bg{
+      position:fixed;inset:0;z-index:0;
+      background:
+        radial-gradient(ellipse 80% 40% at 50% 100%, rgba(10,31,61,0.9) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 20% 50%, rgba(5,30,60,0.4) 0%, transparent 60%),
+        linear-gradient(180deg, #050d1a 0%, #071525 40%, #050d1a 100%);
+      pointer-events:none;
     }
-    .header-title{
+    .stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+    /* ── HERO ── */
+    .hero{
+      position:relative;z-index:2;
+      text-align:center;
+      padding:4rem 1.5rem 2rem;
+    }
+    .hero-tag{
+      display:inline-block;
+      font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;
+      color:var(--gold);border:1px solid rgba(201,169,110,.3);
+      padding:.35rem .9rem;border-radius:999px;margin-bottom:1.4rem;
+      background:rgba(201,169,110,.06);
+    }
+    .hero-title{
       font-family:'Playfair Display',serif;
-      font-size:clamp(2.2rem,7vw,4rem);
-      font-weight:400;line-height:1.1;
-      color:var(--text);
-      opacity:0;animation:up .8s .25s forwards
+      font-size:clamp(1.8rem,6vw,3.2rem);
+      font-weight:400;line-height:1.15;
+      color:var(--ivory);margin-bottom:.6rem;
     }
-    .header-title em{font-style:italic;color:var(--accent)}
-    .header-sub{
-      font-size:.95rem;color:var(--sub);
-      margin-top:.9rem;line-height:1.6;
-      opacity:0;animation:up .8s .4s forwards
+    .hero-title em{font-style:italic;color:var(--gold)}
+    .hero-sub{
+      font-size:.9rem;color:var(--muted);
+      max-width:400px;margin:0 auto 2.5rem;line-height:1.7;
     }
 
-    /* ── MOOD PILLS ── */
-    .mood-grid{
-      display:flex;flex-wrap:wrap;justify-content:center;
-      gap:.8rem;max-width:600px;width:100%;
-      margin-bottom:3rem;
-      opacity:0;animation:up .8s .55s forwards
+    /* ── PHOTO CARD ── */
+    .photo-card{
+      display:inline-flex;flex-direction:column;align-items:center;
+      gap:.8rem;margin-bottom:1rem;
     }
-    .mood-pill{
-      display:flex;align-items:center;gap:.6rem;
-      padding:.75rem 1.4rem;
-      border-radius:999px;
-      border:1.5px solid var(--border);
-      background:var(--surface);
-      cursor:pointer;
-      font-family:'DM Sans',sans-serif;
-      font-size:.9rem;font-weight:400;
-      color:var(--text);
-      transition:all .25s cubic-bezier(.34,1.56,.64,1);
-      backdrop-filter:blur(8px);
-      user-select:none;
-      -webkit-tap-highlight-color:transparent;
+    .photo-ring{
+      width:110px;height:110px;border-radius:50%;
+      background:linear-gradient(135deg,var(--gold),#4a90d9,var(--gold2));
+      padding:3px;
+      box-shadow:0 0 32px rgba(201,169,110,.35), 0 0 64px rgba(74,144,217,.15);
+      animation:ring-pulse 3s ease-in-out infinite;
     }
-    .mood-pill:hover{transform:translateY(-3px) scale(1.04)}
-    .mood-pill.active{color:#0f0e17;font-weight:500;border-color:transparent}
-    .mood-pill .pill-emoji{font-size:1.2rem;line-height:1}
-
-    /* individual pill colors */
-    .pill-happy  {--c:#f9d56e;--cs:#f5a623}
-    .pill-kilig  {--c:#f9a8d4;--cs:#ec4899}
-    .pill-sad    {--c:#93c5fd;--cs:#3b82f6}
-    .pill-bored  {--c:#c4b5fd;--cs:#8b5cf6}
-    .pill-stressed{--c:#86efac;--cs:#22c55e}
-    .pill-miss   {--c:#fda4af;--cs:#f43f5e}
-
-    .mood-pill:hover{border-color:var(--c,var(--accent));box-shadow:0 0 20px rgba(255,255,255,.06)}
-    .mood-pill.active{background:linear-gradient(135deg,var(--c),var(--cs));box-shadow:0 6px 24px rgba(0,0,0,.3)}
-
-    /* ── CONTENT CARD ── */
-    .content-card{
-      width:100%;max-width:560px;
-      background:rgba(255,255,255,0.05);
-      border:1px solid var(--border);
-      border-radius:24px;
-      padding:2.2rem 2rem;
-      backdrop-filter:blur(12px);
-      display:none;
-      opacity:0;
-      transform:translateY(20px);
-      transition:opacity .5s ease,transform .5s ease;
+    @keyframes ring-pulse{
+      0%,100%{box-shadow:0 0 28px rgba(201,169,110,.3),0 0 56px rgba(74,144,217,.1)}
+      50%{box-shadow:0 0 44px rgba(201,169,110,.55),0 0 80px rgba(74,144,217,.25)}
     }
-    .content-card.visible{display:block}
-    .content-card.shown{opacity:1;transform:translateY(0)}
+    .photo-inner{
+      width:100%;height:100%;border-radius:50%;
+      overflow:hidden;background:var(--navy);
+    }
+    .photo-inner img{width:100%;height:100%;object-fit:cover;object-position:center top}
+    .photo-name{
+      font-family:'Playfair Display',serif;
+      font-size:1.1rem;font-style:italic;color:var(--gold);
+    }
+    .photo-badge{
+      font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+      color:var(--muted);margin-top:-.3rem;
+    }
 
-    /* letter section */
-    .letter-label{
+    /* ── ROADMAP WRAP ── */
+    .roadmap{
+      position:relative;z-index:2;
+      max-width:680px;margin:0 auto;
+      padding:1rem 1.5rem 5rem;
+    }
+
+    /* center spine */
+    .spine{
+      position:absolute;
+      left:50%;top:0;bottom:0;
+      width:2px;
+      background:linear-gradient(to bottom,
+        transparent 0%,
+        var(--line) 5%,
+        var(--line) 92%,
+        transparent 100%);
+      transform:translateX(-50%);
+    }
+
+    /* ── STAGE ── */
+    .stage{
+      display:grid;
+      grid-template-columns:1fr 48px 1fr;
+      gap:0 0;
+      margin-bottom:2.8rem;
+      opacity:0;transform:translateY(24px);
+      transition:opacity .7s ease, transform .7s ease;
+    }
+    .stage.visible{opacity:1;transform:translateY(0)}
+
+    /* alternate left/right */
+    .stage:nth-child(odd) .stage-card {grid-column:1;text-align:right;padding-right:1.6rem}
+    .stage:nth-child(odd) .stage-empty{grid-column:3}
+    .stage:nth-child(even) .stage-card {grid-column:3;text-align:left;padding-left:1.6rem}
+    .stage:nth-child(even) .stage-empty{grid-column:1}
+    .stage-node{grid-column:2;display:flex;flex-direction:column;align-items:center;gap:0;z-index:1}
+
+    /* node dot */
+    .node-dot{
+      width:44px;height:44px;border-radius:50%;
+      border:2px solid var(--line);
+      background:var(--deep);
+      display:flex;align-items:center;justify-content:center;
+      font-size:1.3rem;flex-shrink:0;
+      transition:all .4s;
+      position:relative;
+      cursor:default;
+    }
+    .stage.visible .node-dot{
+      border-color:var(--node-color, var(--gold));
+      box-shadow:0 0 16px var(--node-glow, rgba(201,169,110,.3));
+    }
+    .node-line{width:2px;flex:1;background:var(--line);min-height:20px}
+
+    /* card */
+    .stage-card{display:flex;flex-direction:column;padding-top:.3rem;padding-bottom:.3rem}
+    .stage-empty{}
+
+    .card-year{
       font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;
-      color:var(--accent);margin-bottom:1.2rem;display:flex;
-      align-items:center;gap:.6rem
+      color:var(--node-color, var(--gold));margin-bottom:.35rem;
+      font-weight:500;
     }
-    .letter-label::after{content:'';flex:1;height:1px;background:var(--border)}
-
-    .letter-text{
+    .card-rank{
       font-family:'Playfair Display',serif;
-      font-size:clamp(1.05rem,2.5vw,1.25rem);
-      line-height:1.85;color:var(--text);
-      min-height:120px;
+      font-size:clamp(1rem,2.5vw,1.2rem);
+      font-weight:700;color:var(--ivory);
+      line-height:1.2;margin-bottom:.35rem;
     }
-    .cursor{
-      display:inline-block;width:2px;height:1.1em;
-      background:var(--accent);margin-left:2px;vertical-align:text-bottom;
-      animation:blink .8s step-end infinite
+    .card-title{
+      font-size:.8rem;color:var(--gold);
+      font-weight:500;margin-bottom:.5rem;
+      font-style:italic;
     }
+    .card-desc{
+      font-size:.8rem;color:var(--muted);
+      line-height:1.6;margin-bottom:.6rem;
+    }
+    .card-pills{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:flex-end}
+    .stage:nth-child(even) .card-pills{justify-content:flex-start}
+    .pill{
+      font-size:.62rem;padding:.2rem .6rem;border-radius:999px;
+      font-weight:500;letter-spacing:.05em;white-space:nowrap;
+    }
+    .pill-cert{background:rgba(74,144,217,.15);color:#7ec8f7;border:1px solid rgba(74,144,217,.2)}
+    .pill-earn{background:rgba(134,239,172,.12);color:#86efac;border:1px solid rgba(134,239,172,.2)}
+    .pill-hot {background:rgba(201,169,110,.12);color:var(--gold);border:1px solid rgba(201,169,110,.2)}
+
+    /* ── SPECIAL: current node (year 1) ── */
+    .stage-current .node-dot{
+      background:linear-gradient(135deg,var(--gold),#4a8fd4);
+      border-color:var(--gold2)!important;
+      box-shadow:0 0 28px rgba(201,169,110,.6),0 0 60px rgba(74,144,217,.2)!important;
+      animation:current-pulse 2.5s ease-in-out infinite;
+    }
+    @keyframes current-pulse{
+      0%,100%{box-shadow:0 0 24px rgba(201,169,110,.5),0 0 48px rgba(74,144,217,.15)}
+      50%{box-shadow:0 0 40px rgba(201,169,110,.8),0 0 72px rgba(74,144,217,.3)}
+    }
+    .you-badge{
+      display:inline-flex;align-items:center;gap:.3rem;
+      font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
+      font-weight:600;color:var(--gold);
+      background:rgba(201,169,110,.12);
+      border:1px solid rgba(201,169,110,.3);
+      padding:.2rem .6rem;border-radius:999px;
+      margin-bottom:.4rem;
+    }
+    .you-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 1.2s step-end infinite}
     @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
-    /* compliment */
-    .compliment-wrap{
-      margin-top:1.6rem;padding:1rem 1.2rem;
-      background:rgba(255,255,255,0.04);
-      border-left:2px solid var(--accent);
-      border-radius:0 10px 10px 0;
-      font-style:italic;font-size:.92rem;
-      color:rgba(245,240,255,.75);line-height:1.6;
-      cursor:pointer;transition:background .2s;
-      position:relative;
+    /* ── TOP FLAG ── */
+    .top-flag{
+      position:relative;z-index:2;
+      text-align:center;padding:2rem 1.5rem 1rem;
     }
-    .compliment-wrap:hover{background:rgba(255,255,255,.07)}
-    .compliment-hint{
-      font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;
-      color:var(--accent);margin-top:.5rem;display:block;font-style:normal
+    .flag-inner{
+      display:inline-flex;flex-direction:column;align-items:center;gap:.5rem;
+      background:linear-gradient(135deg,rgba(201,169,110,.1),rgba(74,144,217,.08));
+      border:1px solid rgba(201,169,110,.3);
+      border-radius:20px;padding:1.8rem 2.5rem;
+      max-width:380px;
+    }
+    .flag-emoji{font-size:2.8rem;animation:float 3s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    .flag-title{
+      font-family:'Playfair Display',serif;
+      font-size:1.4rem;color:var(--gold2);font-style:italic;
+    }
+    .flag-sub{font-size:.8rem;color:var(--muted);line-height:1.6;max-width:260px}
+
+    /* ── QUOTE ── */
+    .closing{
+      position:relative;z-index:2;
+      text-align:center;padding:3rem 2rem 5rem;
+    }
+    .closing-quote{
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.1rem,3vw,1.5rem);
+      font-style:italic;color:var(--muted);
+      max-width:460px;margin:0 auto .8rem;line-height:1.7;
+    }
+    .closing-from{font-size:.8rem;color:rgba(201,169,110,.6);letter-spacing:.1em}
+
+    /* ── MOBILE ── */
+    @media(max-width:520px){
+      .spine{display:none}
+      .stage{
+        grid-template-columns:40px 1fr;
+        grid-template-rows:auto;
+        gap:0 0;
+        margin-bottom:2rem;
+      }
+      .stage:nth-child(odd) .stage-card,
+      .stage:nth-child(even) .stage-card{
+        grid-column:2;grid-row:1;
+        text-align:left;padding-left:1.2rem;padding-right:0;
+      }
+      .stage:nth-child(odd) .stage-empty,
+      .stage:nth-child(even) .stage-empty{display:none}
+      .stage-node{grid-column:1;grid-row:1;justify-content:flex-start;padding-top:.3rem}
+      .node-dot{width:36px;height:36px;font-size:1.1rem}
+      .node-line{display:none}
+      .card-pills{justify-content:flex-start!important}
     }
 
-    /* playlist */
-    .playlist-label{
-      font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;
-      color:var(--accent);margin:1.8rem 0 1rem;
-      display:flex;align-items:center;gap:.6rem
-    }
-    .playlist-label::after{content:'';flex:1;height:1px;background:var(--border)}
-
-    .song-list{display:flex;flex-direction:column;gap:.6rem}
-    .song-card{
-      display:flex;align-items:center;gap:.9rem;
-      padding:.7rem .9rem;
-      background:rgba(255,255,255,.04);
-      border-radius:12px;border:1px solid rgba(255,255,255,.07);
-      transition:all .2s;cursor:default;
-    }
-    .song-card:hover{background:rgba(255,255,255,.08);transform:translateX(3px)}
-    .song-num{
-      font-size:.7rem;color:var(--sub);
-      width:16px;text-align:center;flex-shrink:0
-    }
-    .song-bars{
-      display:flex;align-items:flex-end;gap:2px;
-      width:16px;height:16px;flex-shrink:0;
-    }
-    .song-bar{width:3px;background:var(--accent);border-radius:2px;animation:equalizer var(--d,.4s) ease-in-out infinite alternate}
-    .song-bar:nth-child(1){height:6px;--d:.3s}
-    .song-bar:nth-child(2){height:12px;--d:.5s}
-    .song-bar:nth-child(3){height:8px;--d:.4s}
-    @keyframes equalizer{from{transform:scaleY(.4)}to{transform:scaleY(1)}}
-    .song-info{flex:1;min-width:0}
-    .song-title{font-size:.9rem;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .song-artist{font-size:.75rem;color:var(--sub);margin-top:.1rem}
-    .song-vibe{font-size:.68rem;font-style:italic;color:var(--accent);margin-top:.15rem}
-
-    /* mood tag */
-    .mood-tag{
-      display:inline-flex;align-items:center;gap:.4rem;
-      padding:.3rem .8rem;border-radius:999px;
-      font-size:.7rem;font-weight:500;letter-spacing:.05em;
-      margin-bottom:1.4rem;
-    }
-
-    /* reset button */
-    .reset-btn{
-      display:block;margin:2rem auto 0;
-      background:none;border:1px solid var(--border);
-      color:var(--sub);border-radius:999px;
-      padding:.5rem 1.2rem;font-size:.75rem;
-      letter-spacing:.1em;text-transform:uppercase;
-      cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;
-    }
-    .reset-btn:hover{border-color:var(--accent);color:var(--accent)}
-
-    /* ── ANIMATIONS ── */
-    @keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-
-    /* ── FLOATING HEARTS ── */
-    .floater{
-      position:fixed;pointer-events:none;z-index:50;
-      font-size:1.3rem;animation:float-up 1.2s ease-out forwards
-    }
-    @keyframes float-up{
-      0%{opacity:1;transform:translateY(0) scale(1)}
-      100%{opacity:0;transform:translateY(-80px) scale(.6)}
-    }
-
-    /* ── RESPONSIVE ── */
-    @media(max-width:480px){
-      .content-card{padding:1.6rem 1.3rem;border-radius:18px}
-      .header{padding:2.5rem .8rem 1.8rem}
-    }
-    @media(prefers-reduced-motion:reduce){
-      *,*::before,*::after{animation:none!important;transition:none!important}
-      .content-card{opacity:1;transform:none}
-    }
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .hero-tag,.hero-title,.hero-sub,.photo-card,.top-flag{opacity:0;animation:fadeUp .8s ease forwards}
+    .hero-tag{animation-delay:.1s}
+    .hero-title{animation-delay:.25s}
+    .hero-sub{animation-delay:.4s}
+    .photo-card{animation-delay:.55s}
   </style>
 </head>
 <body>
 
-<canvas id="bg-canvas"></canvas>
+<div class="wave-bg"></div>
+<canvas class="stars" id="stars"></canvas>
 
-<div class="page">
-  <div class="header">
-    <p class="header-eyebrow">A page made just for you</p>
-    <h1 class="header-title">How are you<br><em>feeling today?</em></h1>
-    <p class="header-sub">Pick your mood and I'll be right there with you — always. 💛</p>
-  </div>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Marine Transportation · Career Roadmap</div>
+  <h1 class="hero-title">From <em>Cadet</em> to<br><em>Captain</em> 🌊</h1>
+  <p class="hero-sub">Her journey across the seas — one rank at a time. Every mile earned, every stripe deserved.</p>
 
-  <!-- MOOD PILLS -->
-  <div class="mood-grid">
-    <button class="mood-pill pill-happy"   data-mood="happy">   <span class="pill-emoji">☀️</span> Happy</button>
-    <button class="mood-pill pill-kilig"   data-mood="kilig">   <span class="pill-emoji">🦋</span> Kilig</button>
-    <button class="mood-pill pill-sad"     data-mood="sad">     <span class="pill-emoji">🌧️</span> Sad</button>
-    <button class="mood-pill pill-bored"   data-mood="bored">   <span class="pill-emoji">🌙</span> Bored</button>
-    <button class="mood-pill pill-stressed" data-mood="stressed"><span class="pill-emoji">🍃</span> Stressed</button>
-    <button class="mood-pill pill-miss"    data-mood="miss">    <span class="pill-emoji">🌸</span> Miss You</button>
-  </div>
-
-  <!-- CONTENT CARD -->
-  <div class="content-card" id="contentCard">
-    <div class="mood-tag" id="moodTag"></div>
-    <div class="letter-label">A message from me</div>
-    <div class="letter-text" id="letterText"><span class="cursor"></span></div>
-    <div class="compliment-wrap" id="complimentBox">
-      <span id="complimentText"></span>
-      <span class="compliment-hint">✨ tap for a new one</span>
+  <div class="photo-card">
+    <div class="photo-ring">
+      <div class="photo-inner">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEgAAAA6CAYAAAATBx+NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAABhGSURBVHhe7ZtpjJ3Xed9/Z3m3u86+ktQMh9RiS5AtW5YTO60qWVVku3YTuHZi2UhRoICBorARo4YBt4Gb9kPhFAjqtEkQIJ9qoE0NBG2aILKt3bbEUhK1cZdIDTmcIWefu77rOacf3juUTSTVkKLTL/oPLi7eixf3nvd/nuX/POcZ4ZxzvIe/FfLaD97Dz+M9gt4B7xH0DniPoHfAewS9A94j6B0g/n+keYst3wtLYQxSSaQs90oKiS0MOIuSAhAgJQgQ4u9+P//uCLIW5xx5kWEVKCHRSIxzSCnI8px+v4/WmtAP8LRGAM4YnBA4KcANSJQKIcW1v/ALwS+cIGctGAfOldYgIHeWNOnRbW2zvrnBpUuX2NjcIM0yRkZGaDaaDDWbNBpNnLFUalUajQa1WqP8PiERQiKVQgws7xeFXxhB1hqSLEEIRag9XGEpcoOUknanzdLSW5w4+QovvfQSP/jhD3lrcZFKrcqtt95Ks9FganqaQwuHUVozMzXF/NwcBw8uMDY2jkBhrcXzfBwC6WmE+MVY1E0nyDlHlqUgQWqFcxZhHMpB2utx9vQZvvvd7/LK668itSArcqSUWFfGo0qtihACax3GWaIoIul0CZTm1ltv56tf/Rp3vO/9RNUaCEmRG3JbEh8EwbXLede4qQQ5a7G5wWBxCoQUCCyYnKW3znPs6FGe/8lPOPbyS6xtboMOkEqhtcZREuQHPsYY8jwvr32fIk7QwMjIKIcWDvNrv/45HnzoISqNJkWWYxAIKXFC4Mm3A/7NwE37JmsKbFGAkCilkULinAUs66uXefGF53nssb/gxRd/CqQMjzQIowpRVAEhsMaiAE/I8l1KqkGAJwX1apVms4mSkiNHnufZZ57izKmTuCIH4dBKopTCOYcxBdYU1y7vhnFTCLKmwFqDA6xzOEAKUAJskfPi0aM889TTvHH2DOMTY2gtSdOYNE1w1uJJSeT71MKQWuBR9TQ1X1MPNKFwSBxSSqIo4vDhBVZWlnnyicfpdzoI5xDC4ZxBljkAa81NI+ldE7RLDpRJCulKpWMM7Z0Wrx17le//t+9z+vhZxkam6fcNjoAwrFOvVFDCUfE1zSigGfo0A5/xWsR4LWQ4VEzUIyJfU1hLkqZlbDIFa1eu8NSTj7OzvVWS5BzOGnYjxs0i6V0R9HPkAOBwWBCOoihYPL/If/nuH7F4fgnhPJSIwAUgKvhehWoUEChBPQpoVkLqoUcj9BhvVJkebjDRqDI72qBZq6CUV7qiteRZxuUrKzz5+I9YvrREmiSAQwA/m8xuBkk3TJCztiTHgRj8gUMKg5CC1s4OJ15/nf/5l39BnMYEoUeW52RWYSxIIfC1IvIUQ5WQ4WpEPfBpRD6Tww1mxkaYGh1mZmKcRq2Opz2UkDjnSLOMra1tzpw6w4nXTrK2ug5IpFSlGTuurstZW2qnG8QNEeScwxR5uQAcQgiEECgBWlmE8Dh/9i2OHX0BPRKSqy7dbINWvMFGr0eW7WDzDtY46oHPaDVkOAqo+T7NsMLU8DAz42NMjIwxNjZDVGkgkAjjcEKQmIIkKwhVjWeffI7jr7+BEx4CDxxYZ7HOluuSAmuLq653vbgxgkyBVLJcAKXZG2PIjKVfOJJ2m6NHfspjTzzGULWC0prtfsLSRoukl9DLHWlhUEkMeYGQPgma9X5BrCJE1MAPa3hSIYqMSpETmoJeFrPRadNOEmKbs5Ht8PjzP+DIS0+wsXoORRspLUoplFIgwBoLDtzPhYK947oJctaUqtWBtZYyZw00j9JYGbK6epm3Lpxj5coyyhkKY0gLR2ogKVKSPMOZgkA7QuXQGJQxiDzHxAmeEES+RklHHHfwREaoC9ppm51+hySOMVlGmvdJTI9zF97klROvkiuBG8Sg0uVLa3LOIUXpbteL6yYI58qdsRZry91BlFW4kholPc5dOMfq5ipOCERRkGY5hQUhNblM8TDUfI9GtULFU4TCEFFQFYais40yKaGWSAG9fo/AE9SqHv2sSzyQB3makGUxjWadpeVlfvzcUfqFprACZ93PuZSjvL4RK7ougqw1CClLcpwddCLkVWvCOrSFU6dfZ2VjBb8S4iufIrckcU6WpkiZMNUMmRubYHp4mlD6hJ6mWtFUKtDrr2NMjFIC4RRFImnWRxkbHcdkFisEfVuwnfVoxR0EgjdPnePZx56jv5JhU4d1FjNIIFJKBAJjTfl5cX1Z7boIwtlSqdrSzz3PK+uoXWuyKTrbZvnV5+lcuUBU0Tgn0MrHWksS9/DTAoFkO+5x/vIlNlo77Gzt4JKcho7YvHSF9maLjY0tXnvjLG+urfLCm6c4fu4MvhMETqKdRBiJyhzEGcrmpMkWr778DP1eCyVVuVznkKLsJV21dnd9brZngtzAl60pf2C3erbWIqRAqjIFd/tdlpaWae10EMonRdHrdhiNNB+7bY7733eYuw/NsjA7woHxOvsnh5geH+KWA7PcdfddfOjeDzM2NoyWjpFqwPzkKIdnJ7hzfh8fu+NWFiZGCLSgX6TkQpE4B54gSbd55vE/Z3trFSklSqrSyq8+QLlmIcWgBNob9lysOmuw1mCKsgMohBjUPgbP8xAI2u0dzp45wTe++hVOnT+PboxilUa0N/jo4YM8+OEPUg01uShweY5OCrR2NIeGmJjZz+jULNvbO/Rbm3RbW/TaHZzyCSsBQgra7YwTV9Y48sY5zl5eQ/kVjDMImxFRMO57/N5//q989FceQClFkRdIKUv5ai1a6cFGghhY2TvhOizIlXJQiKtuVRQFzpY6KMsy3jpzij/7w99np3WFyBfoPKbd2uFD73s/H7rjdqp+wPmNmBfPbHDs5AUWVxYRyuFMhktjAmsYrVRQpiDt9+gnPU6eOcXxU6e4dGkZXJ+P3THP/YfnuHN4iIoFawRGBvSs5OTiJotLl2i32mUW+xlVvbuhpZvtySZgrwSV7jVwMWevKmcpJX7gA7C6tsrLrxzn8WeOsdIV9IIasdSkrZg7p/dx1/wsU9M15manmZuaZf8ttzN+64fwR29B1MaR1SF0bQgRVqmMTlObmEM29xNMHMYbux3bmCMOGiil+ODBeX7lfbdBZwfbj5GpI8h9vBzWr6yztbWFdbaMP1dLEHE1eJepf29utieC7KCfvKt5dtWzErJchIWXX3qZv/7BD1htb2HxKPBIcVQiyYGpcfZPzzAxPsXsvmned+gW3n/bIRYWbmVich8jY1PU6sNoz0f5Hs2RMSZm9jM1s59D8wvM759j38x+JqduYXRkjFv272Nh7gDDtQBhy+a/lpLmUMjZMye4uHhuoPFdWZyJ0mp2tZC1A0vaA/ZMEAPxJUSpM9g1W2vJ04wjP32eH/7oMcJhRSPwkRYKWzAy7tMcrtKoj9Ns7GNscoLDh2a5Y2GGgzPjzE6MMT02TrNWQzmHrxWNeo2piTEWDsxy58I+7rplgjv2T3L7LfPsn9nH0Ng4leEhRseGEMrDOlC+oD5e5bVXX+Ds6RM4azDWghADr7IoVT5u6Ql7Y2hPBMlBrbUrCJ0rhZfFURjD+sY6rc4OhbUI6SOkRDgQ1iEHGkkICH2PkaEmjVqDaq1B1KjjVyvIwEdojfQ8PD/ECYEOfcZnphienGRseorx8THqlYhKWMXTPtZYtrt9clvghwFRpYrJDYuLF7h48QKdTqtMKsaAc2VNZnbbIXvvX++JIAaE4MqSwuJwgvJEQcCVjTVa3Q4GR24chSkJUQjSfkqWZRR5DsYgCkvgBURhhFKabq+HMRYlFUpKPE9jrCNJM9I0RXsa7fsoJVFYTG5xBvLCsNHuojwJoqwFG7U61hp2drbZ3NxEa42UCucEzg10kZRIOQjYe8CeCHI4nC0D9K7v7lbwTgjWN9fp9LuDjVHlOZZ1mDwn7uf0kpQ0z7CmQBiDMw5rHLYoKNKMLE6Ie3067Q5bW1tkaYotLGmcoEWphK1zKBx5bon7Ce1Oj/V2D0TZ1i2KAl8HVKKQOO6zsrIy0D0Dt7IDcna9YY/YG0HOvE2SLdsIlNoLh2Nza5NuvwNKILUPUlAUOXmWo5QkKQxxnlMUOaIoSAaEmH6KhyDu9thYX+fy5cssXrhAr9dD4rB5jrJl78lYg8CRF4adTo/1rR12eg7rDIIy8Oa5oVavkyQxFy8uYm1xtYHmnBtY/GDtNzOL7ZrlbqoUohRb1hqsM2xurtPrdcqjm8ISJzFpllKvN/j433uA+ugE/Tyn1WnT63QwpijjgrUoIYnjPtvtHXa6Ozjp6MZdOt0OOEeepeUrT4nTmHYc080yUidQPmgp8JRAOMdOp0OSxqxvrHLhwiJm0OpAiPLY2pUbXGblm0hQmb1K9YwrNdAunLGsr60S93toKShMjsUilSRJco6fPs+pxYusdtoY6cizmH6/R5zFWOmIahUmJseZnBxnZGiI/ftmmZqcYHh0mNpQg9TmxGlMvx/T7vfJJay2u1zebtFsDhH5AcqBswVGKOIkodNuXQ3SzpWSREpBnudvXw8y2jthT3e5nxFbuwMEAoFwYI1h7coqWRwTBT5KgsMipcI4weLyKkePn+TN5WUyZymKjCTr0427tLottrY22NncoLuxSX9ji/aVNXpb2/Q7Hbr9Lv0sJk5jkjShX+TENueNlWVOvXWRWhShUShXrs8ojXGWNEuJk/jtXtVgg42xQDkLUIrId8ae7ioT2Ns7wW7ZgcTkBauXL5PFCbVKROD7pQtJ8MMIL6rzypk3eP3NN2nFXQqbUdicbtxl+fIyJ157jaNPPcuxJ5/l7HMvcOSvfsixp3/MqZde5vwbZ2l1W2RpUsY0aVltbfDymdO8cvosCiC3KAueluRS4AUe4EiSpNSIV2MQZdt2VzjuMVDviSA7+IHSlwXGlMoa5yjynM31NZK4j5KKwuRor5y+yApDkhsyJ1heW+f46VNs72yRmxQhHb6SVJViyAuYDuvM10eZr41Sy0GnOfUgJE9T4n6ffhyz3enw5I+f4s2li+goQguBFhItBVJADvhBQF6kbG1ulC6Fu5riPX/QnjFl0b0X7IkgpTQakM6RCYuR5WFe0m6zeOo01VZG3ZaTFqkFZxXKCjxpUBWLjgLeurzFE0dOcmG1x063i7U5lajC8OQ4o/P7CPdPkgxXkFMj1PdP05gaR/maIs/o9dpcWV3l5MlFnn/tHJe22qAVOAh8H+n5FFIQSovnV+gnjvWNFhiHM2XJ4ZTCSkV5fqtQUl/7mH8j9kSQFBI36O8K5xAKnLCsrlzimf/91+jUUAsjhJTk1uEsaCEJtER6OcqTbLT6HD+3wvlLG1xZW6ff66KUpDLUoLlviuqBKeTkMMG+cer7p4hGmmSmoN/rsbW9wcrlZc6dv8TSlTa9pDxayo0BpXBK44REuRwhNFnm6LS7dNvdUqAOfK2wtpwGEXufL9oTQUJIUmfIjSEoBKFQJCblxKmT/Nkf/ykbMoGhqOzc5TkCh681ntYUSXq1LwOC5ZUVLi8vs7W+TtzrYk1BJQoZGxthdnaaqckJqtUIYws67R02NzdYXb3C+uYG/TQh8gOqXoBE0C1Senk2EJGCLM2wJkcKS5GnLL51jiTuIwVgLabIB8Fo72JRffvb3/72tR/+TRADf8eCUJLjx1/jyR/9kJefe56+Dz2bEZscZwXVsIpzliRPsZ7A5Y6qFzI/O8s//OWPMNLwcSan2+2RxDFZmlHkBUVRkCQJ7U6bzc1N1tbL1gXOMTY5w+0fvJdafZztnTZX1lbRtRAoSxpNKTE0ooxNUtHaaXHbbYeZmJjA2nJSxBmLgJub5gEkpThEOlrbmzz9xBM8/cxTMFJBK1kWrlgUAmPKItFZi0RQpDkLBw/y0CceYnh4mGoYlpopy+i0W6yvrbK8fImlpYssLV1kZWWZra1Nsiwl9D3CKKRWrzM7PctDDzzIobkF8syQZgWptWSDoCtNaSm+p8EWHHnuJxx78SirK5fQSiJxCLF3crgegsr5G0dBwcmzp3jh6BHOvnkGMVQh9H08qcqjHyExRdnYFwhMVuCynIX5Bf7+/ffj+R6+7xEFQbmjtlTe7W6bVrtFu9Om3+9TGEMQBAwNDVFvNAmiiFD7fOCuu7n33nuZnz9IGqfkuSHNC5K8QKEGNZcAHBvrq7z68jHeOn+uLFCtQcm367O9YO93AkIpkizmqR8/ydrOOtXhBmmegVT40iMUHloqpCpfOMg6MRjB6PAo+/cdwA8CoiiiWq1RrdSoVOvU602GhkYYGR1jdHyC4dExhoZGaNSb1OtNmiMj1OsNtBMMNYf4R5/9LF/68pcgs5ikoJek9LMMX4dYC1legBSMjI6ydGmJi0sXsLYoWx97FIi7uK67pVAUWPrtNuub62y2t5GDs/KisGDK6j4pCvLC4kwpTv7po7/Fww/9KlJpoloNoT2U51NrNK++qvUGlXqDSq1OvdGk0Ryi3hyiVq8jtQYpqURV0ixndHScB+9/kG9+7euMDY0iUATVGt08JzaWxDj6qaHTi9l/YI6Z2X1Ya5Fa77lZv4vrIgigEtZQxlKkGUmak5qCzDkKITFCkluLk5IsL4iCCg9/4hEefuBhblu4FaU0YaWK8jyE0ijtEYQhYaVKVK0RVqqE1SpRrUZUqxFGFZT2UVKhlUKHAVaA73nM7T/AZz/1GT73mV/j0NxB2t0ePVdQSE3hFP20YKvVYf/cPAfm5hFSIfaofX4W101Q4FWYnpxGGoOnBEmRE7uCFEcG5NYglCI3lka9waOf/yJ33XEn9WoDKTW1RhMdhCAVCIH2fPwgxA8CPN/H84PBdYj2fKTSKARKaVQUIJTGOaj4EbcuHOaLn/8N7rvnXgSCTAvwfFA+uRW0exmj41OMT0whlIcU12c93AhBAJ/45D8m7fcZbTaxOHbiPq00JjYFBihb1pKh5jC/dN99NGsNityAEIxNThJUqkit8TyPwA/KEkBr3ECbCCVRnkb7HsrT4Mq2b9isI7REIREWkjTl9kO38fGP/jL3fPAe/HoFHYToICo3QQgcAmMdQly/9XCjBB267Q7+7Xf+gL4XUPgRXlAj0FUC5aM86LV3uP3wYR555FNE1SbOVwhlCDQMN4dQqo5zPkIajOwjdI7naUJdx1e1clhKW4QqsMZgCfD8JsP1JoGvQJQ9HWEFxhTcc889fPrhT9Ja2iJJMqwSqEpIfWKM7/7JH/PSsVd+rkVzPbghggC++Btf5iv/7F8g8RHSxypNISVOgMlz5m+Z4yMf/gjClYMDUgrCwMePqtSa44TVBlKA1uUsj9Ya3/fxfQ8l5dXHETiCap2oMYxSHqYwV9unnudhjWFibJyP3nMvn3ngV6kEIb24jxUQNeo88sgn+Qf3P3DN6veOGyYI4He/+W949Ne/gBOSXEKCpSgctXqT+bl5Dh2cxw1mgaQUaC/AaZ/62AT1oRGUUoR+lcCL8D0PL5D4oUIpjUAjnUYrRbXZpDI8gkFR5BZnHFrpcqbaWZQQHDwwx7/8519henKKJElI85wvfO6f8O/+9Z4Khb8V74oggD/4zn/k0c9/Hi0l0jiSOOcDd93N3XfeyfjoCJ4SaFWej2fGUDiJXxsmqDXROqAS1qlEdaIoIqxowopHGAaEukKgI3zPx6/W8OpDeGGVMKyWgwnW4qTAUM4H1IKIe+/8AHccvo2h5hCf+8xn+f1//x+uXe51Y8+12P8Ln/rEQ/S7Hf7PT54j6yX81m9+iY/f90uMNptoT9NLYnY6LbrdHvVaEy09XJZgky5BEBD4PlprhC7/QUUrjZaqbHBJTWVslqg5ji1A47Gz02ZtY51u0iOqRQRhgKcknvaIhhp89L77+NZvf+PaZd4Q9jzdsRd873vf44/+8E/4nW99i4W5OTqdFps7W7zy+utkRcHC/EEeefBhPCuJt5bprp/D5T08rzxvM5TdSj04pskyixUB0cxBguFppBEEusLSyjIvn3yVI6++wMj4MLfM7uPA5Ax1HTF7+yEmpyavXdoN46YSBLC+ts7KxWUuXbzI6ydf58Qbp3jimaepVKp8+pFP87vf/B1Cpyn6LdLuZdobi2hZIJXConHWoIUB68iNRIZjeCMz+PURfBmglOb46ZN8/y//nO/8p98D5Xj/++/ky194lC/95qPMzMxcu6R3hXcdg67F+MQ4d3/4A2x1d/je//jv/K/H/opunrCyvsqPf/oT1tZXSbMYHYZEIxOosAqDYySEAqGxllK76ICwOYr0AoyxGCxGCY6/eZoXXn2J5tgwd33gbr7+td/mG1//VzedHID/Cy9Ii9G/iDiYAAAAAElFTkSuQmCC" alt="Her photo"/>
+      </div>
     </div>
-    <div class="playlist-label">Songs that match your vibe</div>
-    <div class="song-list" id="songList"></div>
-    <button class="reset-btn" onclick="reset()">← Pick another mood</button>
+    <div class="photo-name">Future Captain</div>
+    <div class="photo-badge">Marine Transportation · BSMarT</div>
   </div>
 </div>
 
-<script>
-/* ═══════════════════════════════════════
-   MOOD DATA
-═══════════════════════════════════════ */
-const MOODS = {
-  happy: {
-    emoji: '☀️', label: 'Happy',
-    bg: '#1a1200', accent: '#f9d56e', tagBg: 'rgba(249,213,110,.15)', tagColor: '#f9d56e',
-    letters: [
-      `Your smile does something to me, I swear. When you're happy like this, the whole room changes — like the sun decided to move in permanently.\n\nDon't let anything steal this version of you today. You deserve every single reason to feel this good. I love seeing you shine, baby.`,
-      `This is my favorite you — the one with the big laugh and the bright eyes. Stay here for as long as you can. I'll do everything I can to keep you smiling.\n\nYou're so beautiful when you're happy. (You're always beautiful. But especially now.) 💛`,
-    ],
-    compliments: [
-      "That smile of yours is genuinely unfair. You have no idea what it does to people around you.",
-      "You in a good mood is literally the best version of the entire day.",
-      "I think the sun is actually jealous of you right now.",
-      "When you laugh, I forget everything else exists. Every single time.",
-      "Your happy energy is contagious — you don't even notice how many people you lift just by being in the room.",
-    ],
-    songs: [
-      {title:"Golden",artist:"Harry Styles",vibe:"This song is literally about you"},
-      {title:"Espresso",artist:"Sabrina Carpenter",vibe:"Main character energy, your whole vibe"},
-      {title:"好想你",artist:"四叶草",vibe:"Happy & sweet — throwback mode"},
-      {title:"Sunroof",artist:"Nicky Youre",vibe:"Windows down, carefree, you"},
-    ]
-  },
-  kilig: {
-    emoji: '🦋', label: 'Kilig',
-    bg: '#1a0a14', accent: '#f9a8d4', tagBg: 'rgba(249,168,212,.15)', tagColor: '#f9a8d4',
-    letters: [
-      `So you're feeling kilig, huh? Good. Because I think about you way more than I let on — the way you scrunch your nose, the way you text me first sometimes, the way you act like you're not excited but you clearly are.\n\nYou give me butterflies too. Every single time. That part never went away.`,
-      `I still get nervous around you. You'd think after all this time I'd be used to it — nope. One look from you and my brain goes quiet.\n\nYou're the reason kilig even exists, I'm convinced. 🦋`,
-    ],
-    compliments: [
-      "You have this way of being cute without even trying and it's honestly not fair to the rest of us.",
-      "The fact that you exist and chose me is something I think about literally every day.",
-      "You're the kind of person songs are written about. No cap.",
-      "Your eyes do this thing when you're excited and it's my favorite thing in the world.",
-      "Everything you do is somehow adorable. I don't know how you manage it.",
-    ],
-    songs: [
-      {title:"Lover",artist:"Taylor Swift",vibe:"Because that's what we are"},
-      {title:"Die For You",artist:"The Weeknd",vibe:"The feeling, perfectly described"},
-      {title:"Pagsuko",artist:"Moira dela Torre",vibe:"Filipino love at its softest"},
-      {title:"Electric Love",artist:"BØRNS",vibe:"That giddy, can't-stop-smiling feeling"},
-    ]
-  },
-  sad: {
-    emoji: '🌧️', label: 'Sad',
-    bg: '#080e1a', accent: '#93c5fd', tagBg: 'rgba(147,197,253,.12)', tagColor: '#93c5fd',
-    letters: [
-      `Hey. Whatever it is — I just want you to know I'm here. You don't have to explain it, you don't have to be okay right now. You're allowed to feel sad.\n\nI wish I could sit next to you right now. I'd probably say nothing because I wouldn't know the right words — but I'd be there. And sometimes that's all it needs to be.`,
-      `Sad days are allowed. You carry so much quietly, and sometimes that weight needs somewhere to go.\n\nCry if you need to. Rest if you need to. And when you're ready — I'm right here. Not going anywhere. Not even a little. 💙`,
-    ],
-    compliments: [
-      "Even on your hardest days, you're still one of the strongest people I know. You just don't see it.",
-      "You are so much more loved than you realize on days like today.",
-      "It's okay to not be okay. You still matter completely, exactly as you are right now.",
-      "You've gotten through every hard day before this one. This one will pass too.",
-      "I see you. I see how much you feel, and I think that's one of the most beautiful things about you.",
-    ],
-    songs: [
-      {title:"The Night Will Always Win",artist:"Manchester Orchestra",vibe:"For when you just need to feel it"},
-      {title:"Skinny",artist:"Billie Eilish",vibe:"Let it out, it's okay"},
-      {title:"Lagi",artist:"Ez Mil",vibe:"A little ache, a lot of love"},
-      {title:"Re: Stacks",artist:"Bon Iver",vibe:"Quiet, gentle, holds space for you"},
-    ]
-  },
-  bored: {
-    emoji: '🌙', label: 'Bored',
-    bg: '#100d1a', accent: '#c4b5fd', tagBg: 'rgba(196,181,253,.12)', tagColor: '#c4b5fd',
-    letters: [
-      `Wala kang magawa? Same. Let's be bored together. I'll start: I've been thinking about what I'd order if we went out right now. Probably rice. Always rice.\n\nTexting me "gawa mo?" at 11pm is valid. I'm always down. We can talk about absolutely nothing for hours and somehow it still won't feel like wasted time.`,
-      `Boring days with you are genuinely better than exciting days without you. That's not even a line — I mean it.\n\nIf you're really bored, here's a suggestion: send me a random meme, eat something you've been craving, or think of where you want to go when I take you on our next date. Because I'm already planning it. 🌙`,
-    ],
-    compliments: [
-      "You're the only person I know who makes doing nothing feel like an event.",
-      "Bored you is still my favorite company. No contest.",
-      "Your random 'wala lang' messages are genuinely the highlight of my notifications.",
-      "You have the best ideas when you're bored — don't underestimate yourself.",
-      "Honestly I just like knowing you thought of me when you had nothing else to do. That's enough.",
-    ],
-    songs: [
-      {title:"telepatía",artist:"Kali Uchis",vibe:"Daydream mode, thinking of you"},
-      {title:"Chilling",artist:"Adie",vibe:"Chill and lowkey, the whole vibe"},
-      {title:"Motion Sickness",artist:"Phoebe Bridgers",vibe:"Late night, window open energy"},
-      {title:"Creepin'",artist:"Metro Boomin ft. The Weeknd",vibe:"Background track for doing nothing"},
-    ]
-  },
-  stressed: {
-    emoji: '🍃', label: 'Stressed',
-    bg: '#081208', accent: '#86efac', tagBg: 'rgba(134,239,172,.1)', tagColor: '#86efac',
-    letters: [
-      `Breathe. I mean it — one slow breath before you keep reading.\n\nYou are doing so much and I see it, even when it feels invisible. The stress you carry isn't weakness, it's proof that you care deeply. But you can't pour from an empty cup, and you matter more than whatever deadline is stressing you out right now.\n\nRest when you can. You're allowed.`,
-      `I want you to hear this: you are not falling behind. You are not failing. You are a real person with limits, and those limits are valid.\n\nWhen it all calms down — and it will — I'll be here with snacks, a soft place, and zero questions. I got you, always. 🍃`,
-    ],
-    compliments: [
-      "You handle more than most people would even attempt. That's not nothing — that's actually everything.",
-      "The fact that you care this much is already proof you're going to be okay.",
-      "You're doing better than you think you are. I promise.",
-      "One day you'll look back at exactly this moment and realize how capable you actually were.",
-      "Your resilience is one of the most attractive things about you, and that list is already long.",
-    ],
-    songs: [
-      {title:"From the Start",artist:"Laufey",vibe:"Calm it all down, slowly"},
-      {title:"Weightless",artist:"Marconi Union",vibe:"Literally designed to reduce anxiety"},
-      {title:"Selos",artist:"Ben&Ben",vibe:"Gentle, Filipino, feels like a hug"},
-      {title:"4:00 AM",artist:"Keshi",vibe:"Late-night overthinking, but make it pretty"},
-    ]
-  },
-  miss: {
-    emoji: '🌸', label: 'Missing Me',
-    bg: '#180a0e', accent: '#fda4af', tagBg: 'rgba(253,164,175,.12)', tagColor: '#fda4af',
-    letters: [
-      `I miss you too. More than I know how to say without it sounding like a cliche.\n\nI think about you in these random moments — when something's funny and you're the first person I want to tell. When a song comes on and I know you'd love it. When it's late and quiet and I just want to be in the same room as you, doing absolutely nothing.\n\nSoon. Always soon.`,
-      `The distance between us right now is the most annoying thing in the world. Just so you know.\n\nBut also — the fact that you miss me means you think about me when I'm not there. And that makes my chest feel full in a way I can't explain. I love you. I'm always with you, even when I'm not. 🌸`,
-    ],
-    compliments: [
-      "Missing someone this much means you love them completely. And you do, so beautifully.",
-      "You're the kind of person worth missing. I hope you know that from my end too.",
-      "The way you love is quiet and deep and it's one of the most special things I've ever been lucky enough to feel.",
-      "I'm never really gone when you're thinking of me this much.",
-      "You being soft enough to admit you miss someone is one of the bravest, sweetest things.",
-    ],
-    songs: [
-      {title:"I Miss You, I'm Sorry",artist:"Gracie Abrams",vibe:"Exactly this feeling, word for word"},
-      {title:"Thinking Out Loud",artist:"Ed Sheeran",vibe:"Classic, warm, long-distance hug"},
-      {title:"Ikaw at Ako",artist:"Kath & Jan",vibe:"Para sa'tin 💛"},
-      {title:"lovely",artist:"Billie Eilish & Khalid",vibe:"Soft, longing, achingly gentle"},
-    ]
-  }
-};
+<!-- ROADMAP -->
+<div class="roadmap">
+  <div class="spine"></div>
 
-/* ═══════════════════════════════════════
-   STATE
-═══════════════════════════════════════ */
-let currentMood = null;
-let typeTimer = null;
-let complimentIndex = 0;
-
-/* ═══════════════════════════════════════
-   MOOD SELECT
-═══════════════════════════════════════ */
-document.querySelectorAll('.mood-pill').forEach(pill => {
-  pill.addEventListener('click', () => {
-    const mood = pill.dataset.mood;
-    selectMood(mood, pill);
-    spawnFloaters(pill);
-  });
-});
-
-function selectMood(mood, pillEl) {
-  if (currentMood === mood) return;
-  currentMood = mood;
-  const data = MOODS[mood];
-
-  // update pills
-  document.querySelectorAll('.mood-pill').forEach(p => p.classList.remove('active'));
-  pillEl.classList.add('active');
-
-  // morph bg
-  document.body.style.background = data.bg;
-  document.documentElement.style.setProperty('--accent', data.accent);
-  document.documentElement.style.setProperty('--border', data.accent + '33');
-
-  // update card
-  const card = document.getElementById('contentCard');
-  const tag = document.getElementById('moodTag');
-  tag.textContent = data.emoji + ' ' + data.label;
-  tag.style.background = data.tagBg;
-  tag.style.color = data.tagColor;
-
-  // songs
-  renderSongs(data.songs, data.accent);
-
-  // compliment
-  complimentIndex = Math.floor(Math.random() * data.compliments.length);
-  document.getElementById('complimentText').textContent = data.compliments[complimentIndex];
-
-  // show card
-  card.style.display = 'block';
-  card.classList.remove('shown');
-  void card.offsetWidth; // reflow
-  card.classList.add('visible');
-  setTimeout(() => card.classList.add('shown'), 20);
-
-  // typewrite letter
-  const letter = data.letters[Math.floor(Math.random() * data.letters.length)];
-  typewrite(letter);
-
-  // scroll to card
-  setTimeout(() => card.scrollIntoView({behavior:'smooth', block:'nearest'}), 100);
-}
-
-/* ═══════════════════════════════════════
-   TYPEWRITER
-═══════════════════════════════════════ */
-function typewrite(text) {
-  if (typeTimer) { clearTimeout(typeTimer); typeTimer = null; }
-  const el = document.getElementById('letterText');
-  el.innerHTML = '<span class="cursor"></span>';
-  let i = 0;
-  const speed = 22;
-
-  function tick() {
-    if (i < text.length) {
-      const char = text[i];
-      // insert before cursor
-      const cursor = el.querySelector('.cursor');
-      const node = document.createTextNode(char === '\n' ? '\n' : char);
-      if (char === '\n') {
-        el.insertBefore(document.createElement('br'), cursor);
-        el.insertBefore(document.createElement('br'), cursor);
-      } else {
-        el.insertBefore(node, cursor);
-      }
-      i++;
-      // vary speed slightly
-      const delay = char === ',' || char === '.' || char === '—' ? speed * 5 : char === '\n' ? speed * 8 : speed + Math.random() * 10;
-      typeTimer = setTimeout(tick, delay);
-    } else {
-      el.querySelector('.cursor').style.display = 'none';
-    }
-  }
-  tick();
-}
-
-/* ═══════════════════════════════════════
-   SONGS
-═══════════════════════════════════════ */
-function renderSongs(songs, accent) {
-  const list = document.getElementById('songList');
-  list.innerHTML = '';
-  songs.forEach((s, i) => {
-    const div = document.createElement('div');
-    div.className = 'song-card';
-    div.style.animationDelay = (i * 0.08) + 's';
-    div.innerHTML = `
-      <span class="song-num">${i + 1}</span>
-      <div class="song-bars">
-        <div class="song-bar" style="background:${accent}"></div>
-        <div class="song-bar" style="background:${accent}"></div>
-        <div class="song-bar" style="background:${accent}"></div>
+  <!-- STAGE 1 — 1st Year -->
+  <div class="stage stage-current" style="--node-color:#c9a96e;--node-glow:rgba(201,169,110,.45)">
+    <div class="stage-card">
+      <span class="you-badge"><span class="you-dot"></span> You are here</span>
+      <div class="card-year">Year 1 · 2024–2025</div>
+      <div class="card-rank">BSMarT 1st Year</div>
+      <div class="card-title">Marine Transportation Cadet</div>
+      <div class="card-desc">Foundation year — Basic seamanship, navigation theory, maritime laws, and NSTP. Getting the stripes starts here. Every captain you'll ever meet started on this exact floor.</div>
+      <div class="card-pills">
+        <span class="pill pill-cert">Basic Seamanship</span>
+        <span class="pill pill-cert">NSTP</span>
+        <span class="pill pill-hot">The Beginning ⭐</span>
       </div>
-      <div class="song-info">
-        <div class="song-title">${s.title}</div>
-        <div class="song-artist">${s.artist}</div>
-        <div class="song-vibe">${s.vibe}</div>
-      </div>`;
-    list.appendChild(div);
+    </div>
+    <div class="stage-node">
+      <div class="node-dot">⚓</div>
+      <div class="node-line"></div>
+    </div>
+    <div class="stage-empty"></div>
+  </div>
+
+  <!-- STAGE 2 — 2nd Year -->
+  <div class="stage" style="--node-color:#7ec8f7;--node-glow:rgba(126,200,247,.3)">
+    <div class="stage-empty"></div>
+    <div class="stage-node">
+      <div class="node-dot">🧭</div>
+      <div class="node-line"></div>
+    </div>
+    <div class="stage-card">
+      <div class="card-year">Year 2 · 2025–2026</div>
+      <div class="card-rank">BSMarT 2nd Year</div>
+      <div class="card-title">Navigation & Ship Operations</div>
+      <div class="card-desc">Celestial navigation, ship stability, meteorology, cargo handling. You start to understand how the ocean actually thinks — and how to outthink it.</div>
+      <div class="card-pills">
+        <span class="pill pill-cert">STCW Basic Safety</span>
+        <span class="pill pill-cert">Firefighting Training</span>
+        <span class="pill pill-hot">Ganahan na 🔥</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAGE 3 — 3rd Year -->
+  <div class="stage" style="--node-color:#a78bfa;--node-glow:rgba(167,139,250,.3)">
+    <div class="stage-card">
+      <div class="card-year">Year 3 · 2026–2027</div>
+      <div class="card-rank">BSMarT 3rd Year</div>
+      <div class="card-title">Advanced Seamanship & Bridge Watch</div>
+      <div class="card-desc">Radar navigation, GMDSS, advanced meteorology, marine engineering basics. You're now thinking like a watch officer. Bridge time starts feeling real.</div>
+      <div class="card-pills">
+        <span class="pill pill-cert">GMDSS Certificate</span>
+        <span class="pill pill-cert">RADAR/ARPA</span>
+        <span class="pill pill-hot">Almost There 💪</span>
+      </div>
+    </div>
+    <div class="stage-node">
+      <div class="node-dot">🌐</div>
+      <div class="node-line"></div>
+    </div>
+    <div class="stage-empty"></div>
+  </div>
+
+  <!-- STAGE 4 — 4th Year / OJT -->
+  <div class="stage" style="--node-color:#86efac;--node-glow:rgba(134,239,172,.3)">
+    <div class="stage-empty"></div>
+    <div class="stage-node">
+      <div class="node-dot">🚢</div>
+      <div class="node-line"></div>
+    </div>
+    <div class="stage-card">
+      <div class="card-year">Year 4 · 2027–2028</div>
+      <div class="card-rank">Senior Cadet / OJT</div>
+      <div class="card-title">On-the-Job Training at Sea</div>
+      <div class="card-desc">The first time the ocean is your classroom and your office. 6–12 months shipboard training as a deck cadet on a real vessel. First sea service hours logged. This is where you level up for real.</div>
+      <div class="card-pills">
+        <span class="pill pill-cert">Sea Service Record</span>
+        <span class="pill pill-cert">Officer of the Watch</span>
+        <span class="pill pill-earn">First Paycheck at Sea 💰</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAGE 5 — Licensure -->
+  <div class="stage" style="--node-color:#fda4af;--node-glow:rgba(253,164,175,.3)">
+    <div class="stage-card">
+      <div class="card-year">2028–2029</div>
+      <div class="card-rank">PRC Board Exam</div>
+      <div class="card-title">MARINA Licensure · OIC Navigation Watch</div>
+      <div class="card-desc">Pass the Philippine Coast Guard and MARINA board exams to become a licensed Officer in Charge of a Navigation Watch (OICNW). Your license is your passport to the world's oceans.</div>
+      <div class="card-pills">
+        <span class="pill pill-cert">PRC License</span>
+        <span class="pill pill-cert">STCW Cert of Competency</span>
+        <span class="pill pill-hot">Licensed 🎓</span>
+      </div>
+    </div>
+    <div class="stage-node">
+      <div class="node-dot">📜</div>
+      <div class="node-line"></div>
+    </div>
+    <div class="stage-empty"></div>
+  </div>
+
+  <!-- STAGE 6 — 3rd Officer -->
+  <div class="stage" style="--node-color:#86efac;--node-glow:rgba(134,239,172,.3)">
+    <div class="stage-empty"></div>
+    <div class="stage-node">
+      <div class="node-dot">🟢</div>
+      <div class="node-line"></div>
+    </div>
+    <div class="stage-card">
+      <div class="card-year">2029–2031</div>
+      <div class="card-rank">3rd Officer</div>
+      <div class="card-title">Junior Navigation Officer</div>
+      <div class="card-desc">Your first official rank aboard a vessel. Responsible for safety equipment, fire & lifeboat drills, and navigation watch. Starting salary ₱80,000–₱130,000/month tax-free internationally.</div>
+      <div class="card-pills">
+        <span class="pill pill-earn">₱80k–₱130k/mo 💰</span>
+        <span class="pill pill-cert">Safety Officer</span>
+        <span class="pill pill-hot">1st Stripe 🟢</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAGE 7 — 2nd Officer -->
+  <div class="stage" style="--node-color:#fbbf24;--node-glow:rgba(251,191,36,.3)">
+    <div class="stage-card">
+      <div class="card-year">2031–2034</div>
+      <div class="card-rank">2nd Officer</div>
+      <div class="card-title">Navigation Officer · Medical & Chart Officer</div>
+      <div class="card-desc">Now you're the navigator. Responsible for voyage planning, charts, GPS systems, and medical care onboard. Two stripes. The rank where people start to notice you're serious.</div>
+      <div class="card-pills">
+        <span class="pill pill-earn">₱150k–₱220k/mo 💰</span>
+        <span class="pill pill-cert">Medical First Aid</span>
+        <span class="pill pill-hot">2 Stripes 🟡🟡</span>
+      </div>
+    </div>
+    <div class="stage-node">
+      <div class="node-dot">🗺️</div>
+      <div class="node-line"></div>
+    </div>
+    <div class="stage-empty"></div>
+  </div>
+
+  <!-- STAGE 8 — Chief Officer -->
+  <div class="stage" style="--node-color:#f9a8d4;--node-glow:rgba(249,168,212,.35)">
+    <div class="stage-empty"></div>
+    <div class="stage-node">
+      <div class="node-dot">⭐</div>
+      <div class="node-line"></div>
+    </div>
+    <div class="stage-card">
+      <div class="card-year">2034–2038</div>
+      <div class="card-rank">Chief Officer / Chief Mate</div>
+      <div class="card-title">Second-in-Command · Cargo & Crew</div>
+      <div class="card-desc">You run the deck department. Cargo operations, crew management, stability calculations — you're the Captain's right hand. Three stripes, massive responsibility, and the respect that comes with it.</div>
+      <div class="card-pills">
+        <span class="pill pill-earn">₱280k–₱400k/mo 💰</span>
+        <span class="pill pill-cert">Chief Mate License</span>
+        <span class="pill pill-hot">3 Stripes 🌟🌟🌟</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAGE 9 — MASTER / CAPTAIN -->
+  <div class="stage" style="--node-color:#e8c97a;--node-glow:rgba(232,201,122,.55)">
+    <div class="stage-card">
+      <div class="card-year">2038–2045+</div>
+      <div class="card-rank">Master Mariner</div>
+      <div class="card-title">Ship Captain · Highest Deck Officer</div>
+      <div class="card-desc">The top of the ship. Full command of vessel, crew, cargo, and safety at sea. Absolute authority from port to port. Filipino women captains are rare — that's exactly why it'll mean everything when she gets here.</div>
+      <div class="card-pills">
+        <span class="pill pill-earn">₱500k–₱900k/mo 💰</span>
+        <span class="pill pill-cert">Master Mariner License</span>
+        <span class="pill pill-hot">4 Stripes 👑</span>
+      </div>
+    </div>
+    <div class="stage-node">
+      <div class="node-dot" style="font-size:1.5rem">🏅</div>
+      <div class="node-line"></div>
+    </div>
+    <div class="stage-empty"></div>
+  </div>
+
+  <!-- STAGE 10 — Fleet Commander -->
+  <div class="stage" style="--node-color:#c9a96e;--node-glow:rgba(201,169,110,.6)">
+    <div class="stage-empty"></div>
+    <div class="stage-node">
+      <div class="node-dot" style="font-size:1.5rem">👑</div>
+    </div>
+    <div class="stage-card">
+      <div class="card-year">2045 and Beyond</div>
+      <div class="card-rank">Fleet Commander / Superintendent</div>
+      <div class="card-title">Shore-based Leadership · Fleet Management</div>
+      <div class="card-desc">The ceiling. Managing entire fleets, overseeing multiple vessels, mentoring the next generation of officers. Shore-based executive role — her ocean knowledge now guides entire organizations from the top.</div>
+      <div class="card-pills">
+        <span class="pill pill-earn">Executive Salary 💎</span>
+        <span class="pill pill-cert">Fleet Management</span>
+        <span class="pill pill-hot">The Top 👑</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOP FLAG -->
+<div class="top-flag" style="animation-delay:.1s">
+  <div class="flag-inner">
+    <div class="flag-emoji">⚓</div>
+    <div class="flag-title">She will get here.</div>
+    <p class="flag-sub">The ocean is big — but so is she. Every wave she crosses brings her closer to this moment. And I'll be cheering the loudest. 💛</p>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="closing">
+  <p class="closing-quote">"She is not just going to sea — she is going to conquer it."</p>
+  <div class="closing-from">— From the one who believes in her most 💛</div>
+</div>
+
+<!-- STAR CANVAS + SCROLL REVEAL -->
+<script>
+/* STARS */
+(function(){
+  const c = document.getElementById('stars');
+  const ctx = c.getContext('2d');
+  let W,H,stars=[];
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight}
+  resize(); window.addEventListener('resize',resize);
+  for(let i=0;i<120;i++) stars.push({
+    x:Math.random(),y:Math.random(),
+    r:Math.random()*1.5+.3,
+    a:Math.random()*.6+.1,
+    pulse:Math.random()*Math.PI*2,
+    ps:Math.random()*.015+.005
   });
-}
-
-/* ═══════════════════════════════════════
-   COMPLIMENT ROTATION
-═══════════════════════════════════════ */
-document.getElementById('complimentBox').addEventListener('click', () => {
-  if (!currentMood) return;
-  const data = MOODS[currentMood];
-  complimentIndex = (complimentIndex + 1) % data.compliments.length;
-  const box = document.getElementById('complimentBox');
-  box.style.opacity = '0';
-  setTimeout(() => {
-    document.getElementById('complimentText').textContent = data.compliments[complimentIndex];
-    box.style.opacity = '1';
-  }, 200);
-  box.style.transition = 'opacity .2s';
-});
-
-/* ═══════════════════════════════════════
-   RESET
-═══════════════════════════════════════ */
-function reset() {
-  if (typeTimer) { clearTimeout(typeTimer); typeTimer = null; }
-  currentMood = null;
-  document.querySelectorAll('.mood-pill').forEach(p => p.classList.remove('active'));
-  const card = document.getElementById('contentCard');
-  card.classList.remove('shown');
-  setTimeout(() => { card.classList.remove('visible'); card.style.display = 'none'; }, 500);
-  document.body.style.background = '#0f0e17';
-  document.documentElement.style.setProperty('--accent', '#c9a96e');
-  document.documentElement.style.setProperty('--border', 'rgba(255,255,255,0.1)');
-  window.scrollTo({top: 0, behavior: 'smooth'});
-}
-
-/* ═══════════════════════════════════════
-   FLOATERS
-═══════════════════════════════════════ */
-function spawnFloaters(pill) {
-  const rect = pill.getBoundingClientRect();
-  const emojis = ['💛','🌸','✨','💫','🦋','💕'];
-  for (let i = 0; i < 5; i++) {
-    setTimeout(() => {
-      const el = document.createElement('div');
-      el.className = 'floater';
-      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-      el.style.left = (rect.left + rect.width/2 + (Math.random()-0.5)*60) + 'px';
-      el.style.top = (rect.top + window.scrollY) + 'px';
-      document.body.appendChild(el);
-      setTimeout(() => el.remove(), 1300);
-    }, i * 80);
-  }
-}
-
-/* ═══════════════════════════════════════
-   PARTICLE CANVAS
-═══════════════════════════════════════ */
-(function() {
-  const canvas = document.getElementById('bg-canvas');
-  const ctx = canvas.getContext('2d');
-  let W, H, dots = [];
-
-  function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-  resize();
-  window.addEventListener('resize', resize);
-
-  function rand(a, b) { return a + Math.random() * (b - a); }
-
-  for (let i = 0; i < 55; i++) {
-    dots.push({
-      x: rand(0, 1), y: rand(0, 1),
-      r: rand(1, 2.5),
-      sx: rand(-.00015, .00015),
-      sy: rand(-.00012, -.00005),
-      alpha: rand(.15, .5),
-      pulse: rand(0, Math.PI * 2),
-      pulseSpeed: rand(.008, .02),
-    });
-  }
-
-  function loop() {
-    ctx.clearRect(0, 0, W, H);
-    for (const d of dots) {
-      d.x += d.sx; d.y += d.sy; d.pulse += d.pulseSpeed;
-      if (d.y < -0.02) d.y = 1.02;
-      if (d.x < -0.02) d.x = 1.02;
-      if (d.x > 1.02) d.x = -0.02;
-      const a = d.alpha * (0.7 + 0.3 * Math.sin(d.pulse));
+  function loop(){
+    ctx.clearRect(0,0,W,H);
+    for(const s of stars){
+      s.pulse+=s.ps;
+      const a=s.a*(0.6+0.4*Math.sin(s.pulse));
       ctx.beginPath();
-      ctx.arc(d.x * W, d.y * H, d.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,255,${a})`;
+      ctx.arc(s.x*W,s.y*H,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,255,${a})`;
       ctx.fill();
     }
     requestAnimationFrame(loop);
   }
   loop();
 })();
+
+/* SCROLL REVEAL */
+const stages = document.querySelectorAll('.stage');
+const io = new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('visible'),80);
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.15});
+stages.forEach(s=>io.observe(s));
+
+/* Also reveal top-flag */
+const flagIo = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+      flagIo.unobserve(e.target);
+    }
+  });
+},{threshold:.2});
+const flag = document.querySelector('.top-flag');
+flag.style.opacity='0';
+flag.style.transform='translateY(20px)';
+flag.style.transition='all .8s ease';
+flagIo.observe(flag);
 </script>
 </body>
 </html>
