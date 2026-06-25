@@ -3,26 +3,20 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Her Journey to Captain 🌊</title>
+  <title>Your Journey to Captain 🌊</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
     :root{
-      --ocean:#050d1a;
-      --deep:#091628;
-      --navy:#0a1f3d;
-      --gold:#c9a96e;
-      --gold2:#e8c97a;
-      --ivory:#f0ece0;
-      --muted:rgba(240,236,224,0.5);
-      --line:#1a3a5c;
-      --kuromi:#7c3aed;
-      --kuromi2:#a78bfa;
+      --ocean:#050d1a;--deep:#091628;--navy:#0a1f3d;
+      --gold:#c9a96e;--gold2:#e8c97a;--ivory:#f0ece0;
+      --muted:rgba(240,236,224,0.5);--line:#1a3a5c;
+      --kuromi:#7c3aed;--kuromi2:#a78bfa;
+      --rose:#fb7185;--rose2:#fda4af;
     }
     html{scroll-behavior:smooth}
     body{background:var(--ocean);color:var(--ivory);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;min-height:100vh;}
-
-    .wave-bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 80% 40% at 50% 100%,rgba(10,31,61,0.9) 0%,transparent 70%),radial-gradient(ellipse 60% 50% at 20% 50%,rgba(5,30,60,0.4) 0%,transparent 60%),linear-gradient(180deg,#050d1a 0%,#071525 40%,#050d1a 100%);pointer-events:none;}
+    .wave-bg{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 80% 40% at 50% 100%,rgba(10,31,61,.9) 0%,transparent 70%),radial-gradient(ellipse 60% 50% at 20% 50%,rgba(5,30,60,.4) 0%,transparent 60%),linear-gradient(180deg,#050d1a 0%,#071525 40%,#050d1a 100%);pointer-events:none;}
     #stars{position:fixed;inset:0;z-index:0;pointer-events:none}
 
     /* ── HERO ── */
@@ -30,148 +24,126 @@
     .hero-tag{display:inline-block;font-size:.65rem;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,169,110,.3);padding:.35rem .9rem;border-radius:999px;margin-bottom:1.2rem;background:rgba(201,169,110,.06);}
     .hero-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,6vw,3.2rem);font-weight:400;line-height:1.15;color:var(--ivory);margin-bottom:.5rem;}
     .hero-title em{font-style:italic;color:var(--gold)}
-    .hero-sub{font-size:.88rem;color:var(--muted);max-width:400px;margin:0 auto 2rem;line-height:1.7;}
-
-    /* ── PHOTO CARD ── */
+    .hero-sub{font-size:.88rem;color:var(--muted);max-width:420px;margin:0 auto 2rem;line-height:1.7;}
     .photo-card{display:inline-flex;flex-direction:column;align-items:center;gap:.7rem;margin-bottom:.5rem;}
-    .photo-ring{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#4a90d9,var(--gold2));padding:3px;box-shadow:0 0 32px rgba(201,169,110,.35),0 0 64px rgba(74,144,217,.15);animation:ring-pulse 3s ease-in-out infinite;}
+    .photo-ring{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#4a90d9,var(--gold2));padding:3px;animation:ring-pulse 3s ease-in-out infinite;}
     @keyframes ring-pulse{0%,100%{box-shadow:0 0 28px rgba(201,169,110,.3),0 0 56px rgba(74,144,217,.1)}50%{box-shadow:0 0 44px rgba(201,169,110,.55),0 0 80px rgba(74,144,217,.25)}}
     .photo-inner{width:100%;height:100%;border-radius:50%;overflow:hidden;background:var(--navy);}
     .photo-inner img{width:100%;height:100%;object-fit:cover;object-position:center top}
     .photo-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-style:italic;color:var(--gold);}
     .photo-badge{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:-.2rem;}
 
-    /* ── KUROMI INTRO BUBBLE ── */
-    .kuromi-intro{
-      position:relative;z-index:2;
-      display:flex;align-items:flex-end;justify-content:center;gap:1rem;
-      max-width:600px;margin:1.5rem auto 0;padding:0 1.5rem;
-    }
-    .kuromi-intro .k-figure{display:flex;flex-direction:column;align-items:center;gap:.3rem;flex-shrink:0}
-    .kuromi-intro .k-label{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--kuromi2);font-weight:500;}
-    .kuromi-speech{
-      background:rgba(124,58,237,.12);
-      border:1.5px solid rgba(124,58,237,.35);
-      border-radius:16px 16px 16px 4px;
-      padding:1rem 1.2rem;
-      font-family:'Playfair Display',serif;
-      font-size:.95rem;font-style:italic;
-      color:var(--ivory);line-height:1.7;
-      position:relative;flex:1;
-      box-shadow:0 0 24px rgba(124,58,237,.15);
-    }
-    .kuromi-speech strong{font-style:normal;color:var(--kuromi2);font-family:'DM Sans',sans-serif;font-size:.8rem;display:block;margin-bottom:.4rem;letter-spacing:.05em;text-transform:uppercase;}
+    /* ── KUROMI INTRO ── */
+    .kuromi-intro{position:relative;z-index:2;display:flex;align-items:flex-end;justify-content:center;gap:1rem;max-width:600px;margin:1.5rem auto 0;padding:0 1.5rem;}
+    .k-figure{display:flex;flex-direction:column;align-items:center;gap:.3rem;flex-shrink:0}
+    .k-label{font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--kuromi2);font-weight:500;}
+    .kuromi-speech{background:rgba(124,58,237,.12);border:1.5px solid rgba(124,58,237,.35);border-radius:16px 16px 16px 4px;padding:1rem 1.2rem;font-family:'Playfair Display',serif;font-size:.95rem;font-style:italic;color:var(--ivory);line-height:1.7;flex:1;box-shadow:0 0 24px rgba(124,58,237,.15);}
+    .kuromi-speech strong{font-style:normal;color:var(--kuromi2);font-family:'DM Sans',sans-serif;font-size:.78rem;display:block;margin-bottom:.4rem;letter-spacing:.05em;text-transform:uppercase;}
+
+    /* ── MAMA BANNER ── */
+    .mama-banner{position:relative;z-index:2;max-width:620px;margin:2rem auto 0;padding:0 1.5rem;}
+    .mama-inner{background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(167,139,250,.08));border:1.5px solid rgba(124,58,237,.4);border-radius:20px;padding:1.6rem 1.8rem;display:flex;gap:1.2rem;align-items:flex-start;}
+    .mama-text .mama-title{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--kuromi2);margin-bottom:.6rem;font-weight:600;}
+    .mama-text .mama-quote{font-family:'Playfair Display',serif;font-size:clamp(1rem,2.8vw,1.2rem);font-style:italic;color:var(--ivory);line-height:1.7;margin-bottom:.6rem;}
+    .mama-text .mama-sub{font-size:.78rem;color:rgba(167,139,250,.75);line-height:1.5;}
+    .wiggle{animation:wiggle 2.5s ease-in-out infinite;display:inline-block;}
+    @keyframes wiggle{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
 
     /* ── ROADMAP ── */
     .roadmap{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:2.5rem 1.5rem 3rem;}
     .spine{position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent 0%,var(--line) 4%,var(--line) 93%,transparent 100%);transform:translateX(-50%);}
 
     /* ── STAGE ── */
-    .stage{display:grid;grid-template-columns:1fr 56px 1fr;margin-bottom:0;opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+    .stage{display:grid;grid-template-columns:1fr 56px 1fr;opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
     .stage.visible{opacity:1;transform:translateY(0)}
     .stage:nth-child(odd)  .stage-card{grid-column:1;text-align:right;padding-right:1.5rem;padding-bottom:2.5rem;}
     .stage:nth-child(odd)  .stage-empty{grid-column:3}
     .stage:nth-child(even) .stage-card{grid-column:3;text-align:left;padding-left:1.5rem;padding-bottom:2.5rem;}
     .stage:nth-child(even) .stage-empty{grid-column:1}
     .stage-node{grid-column:2;display:flex;flex-direction:column;align-items:center;z-index:1;}
-
-    .node-dot{width:48px;height:48px;border-radius:50%;border:2px solid var(--line);background:var(--deep);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;transition:all .5s;position:relative;}
+    .node-dot{width:48px;height:48px;border-radius:50%;border:2px solid var(--line);background:var(--deep);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;transition:all .5s;}
     .stage.visible .node-dot{border-color:var(--node-color,var(--gold));box-shadow:0 0 18px var(--node-glow,rgba(201,169,110,.3));}
     .node-line{width:2px;flex:1;background:var(--line);min-height:24px;}
 
-    /* card content */
+    /* card text */
     .stage-card{display:flex;flex-direction:column;padding-top:.4rem;}
     .card-year{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--node-color,var(--gold));margin-bottom:.3rem;font-weight:500;}
     .card-rank{font-family:'Playfair Display',serif;font-size:clamp(.95rem,2.5vw,1.15rem);font-weight:700;color:var(--ivory);line-height:1.2;margin-bottom:.25rem;}
     .card-title{font-size:.78rem;color:var(--gold);font-weight:500;margin-bottom:.4rem;font-style:italic;}
     .card-desc{font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:.6rem;}
-
-    /* subjects to learn */
     .subjects-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--node-color,var(--gold));margin-bottom:.4rem;display:flex;align-items:center;gap:.4rem;}
     .subjects-label::before{content:'📚';font-size:.75rem;}
     .subjects-list{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.7rem;}
-    .stage:nth-child(odd) .subjects-list{justify-content:flex-end;}
-    .stage:nth-child(even) .subjects-list{justify-content:flex-start;}
+    .stage:nth-child(odd) .subjects-list,.stage:nth-child(odd) .card-pills{justify-content:flex-end;}
+    .stage:nth-child(even) .subjects-list,.stage:nth-child(even) .card-pills{justify-content:flex-start;}
     .subject-tag{font-size:.62rem;padding:.18rem .55rem;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(240,236,224,.65);white-space:nowrap;}
-
-    /* pills */
     .card-pills{display:flex;flex-wrap:wrap;gap:.3rem;}
-    .stage:nth-child(odd) .card-pills{justify-content:flex-end;}
-    .stage:nth-child(even) .card-pills{justify-content:flex-start;}
     .pill{font-size:.6rem;padding:.18rem .55rem;border-radius:999px;font-weight:500;letter-spacing:.04em;white-space:nowrap;}
     .pill-cert{background:rgba(74,144,217,.15);color:#7ec8f7;border:1px solid rgba(74,144,217,.2)}
     .pill-earn{background:rgba(134,239,172,.12);color:#86efac;border:1px solid rgba(134,239,172,.2)}
     .pill-hot{background:rgba(201,169,110,.12);color:var(--gold);border:1px solid rgba(201,169,110,.2)}
+    .pill-wed{background:rgba(251,113,133,.12);color:var(--rose2);border:1px solid rgba(251,113,133,.25)}
 
-    /* ── KUROMI TIP BUBBLE (per stage) ── */
-    .kuromi-tip{
-      margin-top:.7rem;
-      background:rgba(124,58,237,.08);
-      border:1px solid rgba(124,58,237,.25);
-      border-radius:10px;
-      padding:.65rem .8rem;
-      display:flex;align-items:flex-start;gap:.5rem;
-      font-size:.75rem;color:rgba(240,236,224,.8);
-      line-height:1.55;font-style:italic;
-    }
-    .kuromi-tip .kt-emoji{font-size:1.1rem;flex-shrink:0;margin-top:-.05rem;}
+    /* kuromi tip */
+    .kuromi-tip{margin-top:.7rem;background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.25);border-radius:10px;padding:.65rem .8rem;display:flex;align-items:flex-start;gap:.5rem;font-size:.75rem;color:rgba(240,236,224,.8);line-height:1.55;font-style:italic;}
+    .kt-emoji{font-size:1.1rem;flex-shrink:0;margin-top:-.05rem;}
 
-    /* ── CURRENT BADGE ── */
+    /* current */
     .stage-current .node-dot{background:linear-gradient(135deg,var(--gold),#4a8fd4);border-color:var(--gold2)!important;animation:cpulse 2.5s ease-in-out infinite;}
     @keyframes cpulse{0%,100%{box-shadow:0 0 22px rgba(201,169,110,.5),0 0 44px rgba(74,144,217,.15)}50%{box-shadow:0 0 38px rgba(201,169,110,.8),0 0 70px rgba(74,144,217,.3)}}
     .you-badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--gold);background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.3);padding:.2rem .6rem;border-radius:999px;margin-bottom:.4rem;}
     .you-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 1.2s step-end infinite;}
     @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 
-    /* ── KUROMI MAMA MESSAGE BANNER ── */
-    .mama-banner{
-      position:relative;z-index:2;
-      max-width:620px;margin:0 auto 0;padding:0 1.5rem;
+    /* ── WEDDING STAGE (special) ── */
+    .stage-wedding{position:relative;}
+    .stage-wedding .node-dot{
+      background:linear-gradient(135deg,var(--rose),#c084fc,var(--rose2));
+      border-color:var(--rose2)!important;
+      font-size:1.6rem;
+      animation:wed-pulse 2s ease-in-out infinite;
     }
-    .mama-inner{
-      background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(167,139,250,.08));
-      border:1.5px solid rgba(124,58,237,.4);
-      border-radius:20px;
-      padding:1.6rem 1.8rem;
-      display:flex;gap:1.2rem;align-items:flex-start;
-      box-shadow:0 0 40px rgba(124,58,237,.12);
+    @keyframes wed-pulse{
+      0%,100%{box-shadow:0 0 28px rgba(251,113,133,.5),0 0 56px rgba(192,132,252,.2)}
+      50%{box-shadow:0 0 50px rgba(251,113,133,.8),0 0 90px rgba(192,132,252,.4)}
     }
-    .mama-kuromi{font-size:3.2rem;flex-shrink:0;animation:wiggle 2.5s ease-in-out infinite;}
-    @keyframes wiggle{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
-    .mama-text{flex:1;}
-    .mama-title{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--kuromi2);margin-bottom:.6rem;font-weight:600;}
-    .mama-quote{font-family:'Playfair Display',serif;font-size:clamp(1rem,2.8vw,1.25rem);font-style:italic;color:var(--ivory);line-height:1.7;margin-bottom:.7rem;}
-    .mama-sub{font-size:.8rem;color:rgba(167,139,250,.75);line-height:1.5;}
+    .wedding-card{
+      background:linear-gradient(135deg,rgba(251,113,133,.08),rgba(192,132,252,.06));
+      border:1.5px solid rgba(251,113,133,.3);
+      border-radius:16px;padding:1.2rem 1.3rem;
+      margin-top:.4rem;
+    }
+    .wedding-hearts{font-size:1.5rem;letter-spacing:.3rem;margin-bottom:.6rem;animation:float-h 2s ease-in-out infinite;}
+    @keyframes float-h{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+    .wedding-title{font-family:'Playfair Display',serif;font-size:clamp(1.1rem,3vw,1.4rem);font-style:italic;color:var(--rose2);line-height:1.3;margin-bottom:.5rem;}
+    .wedding-desc{font-size:.8rem;color:rgba(240,236,224,.7);line-height:1.65;margin-bottom:.8rem;}
+    .wedding-from{font-size:.75rem;color:var(--rose2);font-style:italic;margin-top:.5rem;opacity:.85;}
 
-    /* ── TOP FLAG ── */
+    /* ── CLOSING ── */
     .top-flag{position:relative;z-index:2;text-align:center;padding:1.5rem 1.5rem 1rem;}
     .flag-inner{display:inline-flex;flex-direction:column;align-items:center;gap:.5rem;background:linear-gradient(135deg,rgba(201,169,110,.08),rgba(74,144,217,.06));border:1px solid rgba(201,169,110,.25);border-radius:20px;padding:1.6rem 2rem;max-width:380px;}
     .flag-emoji{font-size:2.6rem;animation:floatY 3s ease-in-out infinite;}
     @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
     .flag-title{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--gold2);font-style:italic;}
     .flag-sub{font-size:.78rem;color:var(--muted);line-height:1.6;max-width:260px;}
-
-    /* ── CLOSING ── */
-    .closing{position:relative;z-index:2;text-align:center;padding:2.5rem 2rem 5rem;}
+    .closing{position:relative;z-index:2;text-align:center;padding:2rem 2rem 5rem;}
     .closing-quote{font-family:'Playfair Display',serif;font-size:clamp(1rem,3vw,1.4rem);font-style:italic;color:var(--muted);max-width:440px;margin:0 auto .8rem;line-height:1.7;}
     .closing-from{font-size:.78rem;color:rgba(201,169,110,.6);letter-spacing:.1em;}
 
     /* ── MOBILE ── */
     @media(max-width:540px){
       .spine{display:none}
-      .stage{grid-template-columns:44px 1fr;margin-bottom:.5rem;}
+      .stage{grid-template-columns:44px 1fr;}
       .stage:nth-child(odd) .stage-card,.stage:nth-child(even) .stage-card{grid-column:2;grid-row:1;text-align:left;padding-left:1rem;padding-right:0;}
       .stage:nth-child(odd) .stage-empty,.stage:nth-child(even) .stage-empty{display:none}
       .stage-node{grid-column:1;grid-row:1;justify-content:flex-start;padding-top:.4rem;}
-      .node-dot{width:38px;height:38px;font-size:1.1rem;}
+      .node-dot{width:38px;height:38px;font-size:1rem;}
       .node-line{display:none}
       .subjects-list,.card-pills{justify-content:flex-start!important;}
-      .stage:nth-child(odd) .subjects-label{justify-content:flex-start;}
       .mama-inner{flex-direction:column;align-items:center;text-align:center;}
       .kuromi-intro{flex-direction:column;align-items:center;}
       .kuromi-speech{border-radius:16px;}
     }
-
     @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
     .anim{opacity:0;animation:fadeUp .8s ease forwards;}
   </style>
@@ -184,13 +156,13 @@
 <div class="hero">
   <div class="hero-tag anim" style="animation-delay:.1s">Marine Transportation · Career Roadmap</div>
   <h1 class="hero-title anim" style="animation-delay:.25s">From <em>Cadet</em> to <em>Captain</em> 🌊</h1>
-  <p class="hero-sub anim" style="animation-delay:.4s">Her journey across the seas — one rank at a time. Every mile earned, every stripe deserved.</p>
+  <p class="hero-sub anim" style="animation-delay:.4s">Your journey across the seas — one rank at a time. Every mile you earn, every stripe you deserve. I wrote this for you.</p>
   <div class="photo-card anim" style="animation-delay:.55s">
     <div class="photo-ring">
       <div class="photo-inner"><img src="data:image/png;base64,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" alt="Future Captain"/></div>
     </div>
-    <div class="photo-name">Future Captain</div>
-    <div class="photo-badge">BSMarT · Marine Transportation</div>
+    <div class="photo-name">Future Captain 👑</div>
+    <div class="photo-badge">BSMarT · Marine Transportation · 2026</div>
   </div>
 </div>
 
@@ -198,51 +170,34 @@
 <div class="kuromi-intro anim" style="animation-delay:.7s">
   <div class="k-figure">
     <svg width="72" height="80" viewBox="0 0 72 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Kuromi SVG illustration -->
-      <!-- body -->
       <ellipse cx="36" cy="58" rx="18" ry="16" fill="#1a1a2e"/>
-      <!-- dress/skirt -->
       <ellipse cx="36" cy="68" rx="20" ry="10" fill="#2d1b69"/>
-      <!-- white collar -->
       <path d="M24 54 Q36 60 48 54" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <!-- head -->
       <ellipse cx="36" cy="34" rx="20" ry="19" fill="#1a1a2e"/>
-      <!-- face white area -->
       <ellipse cx="36" cy="36" rx="13" ry="12" fill="white"/>
-      <!-- hood/hat black -->
       <path d="M16 34 Q18 10 36 8 Q54 10 56 34 Q50 28 36 26 Q22 28 16 34Z" fill="#1a1a2e"/>
-      <!-- skull on hat -->
       <ellipse cx="36" cy="16" rx="5" ry="4.5" fill="white"/>
       <circle cx="34.3" cy="15.5" r="1.2" fill="#1a1a2e"/>
       <circle cx="37.7" cy="15.5" r="1.2" fill="#1a1a2e"/>
       <path d="M33.5 18 Q36 19.5 38.5 18" stroke="#1a1a2e" stroke-width=".8" fill="none"/>
-      <!-- skull crossbones tiny -->
       <line x1="33" y1="20" x2="39" y2="20" stroke="white" stroke-width=".8"/>
-      <!-- eyes -->
       <ellipse cx="30" cy="35" rx="3.5" ry="4" fill="#7c3aed"/>
       <ellipse cx="42" cy="35" rx="3.5" ry="4" fill="#7c3aed"/>
       <circle cx="30" cy="35" r="2" fill="#1a0533"/>
       <circle cx="42" cy="35" r="2" fill="#1a0533"/>
       <circle cx="30.8" cy="34" r=".7" fill="white"/>
       <circle cx="42.8" cy="34" r=".7" fill="white"/>
-      <!-- blush -->
       <ellipse cx="25" cy="39" rx="3.5" ry="2" fill="#f9a8d4" opacity=".5"/>
       <ellipse cx="47" cy="39" rx="3.5" ry="2" fill="#f9a8d4" opacity=".5"/>
-      <!-- mouth -->
       <path d="M31 41 Q36 44.5 41 41" stroke="#7c3aed" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <!-- fang -->
       <path d="M34.5 41.5 L33.5 43.5 L35.5 43.5Z" fill="white"/>
-      <!-- ears/side tufts -->
       <ellipse cx="16" cy="32" rx="3" ry="4" fill="#1a1a2e"/>
       <ellipse cx="56" cy="32" rx="3" ry="4" fill="#1a1a2e"/>
-      <!-- bow on side -->
       <path d="M52 42 Q55 39 58 42 Q55 44 52 42Z" fill="#7c3aed"/>
       <path d="M58 42 Q61 39 64 42 Q61 44 58 42Z" fill="#7c3aed"/>
       <circle cx="58" cy="42" r="2" fill="#a78bfa"/>
-      <!-- tiny arms holding book -->
       <path d="M18 56 Q12 60 14 66" stroke="#1a1a2e" stroke-width="4" stroke-linecap="round" fill="none"/>
       <path d="M54 56 Q60 60 58 66" stroke="#1a1a2e" stroke-width="4" stroke-linecap="round" fill="none"/>
-      <!-- book -->
       <rect x="8" y="62" width="18" height="13" rx="2" fill="#7c3aed"/>
       <line x1="17" y1="62" x2="17" y2="75" stroke="#a78bfa" stroke-width="1.2"/>
       <line x1="10" y1="65" x2="15" y2="65" stroke="#a78bfa" stroke-width=".8"/>
@@ -257,13 +212,13 @@
 </div>
 
 <!-- MAMA BANNER -->
-<div class="mama-banner anim" style="animation-delay:.85s;margin-top:2rem;">
+<div class="mama-banner anim" style="animation-delay:.85s">
   <div class="mama-inner">
-    <div class="mama-kuromi">🖤</div>
+    <span class="wiggle" style="font-size:3rem">🖤</span>
     <div class="mama-text">
-      <div class="mama-title">✦ A message from Kuromi (and someone who loves you)</div>
-      <div class="mama-quote">"Magtapos ka ng pag-aaral, kasi yan ang pangarap ni mama mo para sa'yo. At kahit mahirap, kahit obsteray — take your time. You can do it."</div>
-      <div class="mama-sub">Every subject, every sleepless night, every exam — it all builds the captain you're becoming. Her dream for you is worth every sacrifice. 💜</div>
+      <div class="mama-title">✦ From Rance — and from Kuromi</div>
+      <div class="mama-quote">"Magtapos ka ng pag-aaral, kasi yan ang pangarap ni mama mo para sa'yo. At kahit mahirap, kahit sobrang pagod ka na — take your time. You can do it."</div>
+      <div class="mama-sub">Every subject, every sleepless night, every exam — it all builds the captain you are becoming. Her dream for you is worth every sacrifice. I believe in you more than you know. 💜</div>
     </div>
   </div>
 </div>
@@ -272,15 +227,15 @@
 <div class="roadmap">
   <div class="spine"></div>
 
-  <!-- ── YEAR 1 ── -->
+  <!-- ── YEAR 1 (2026–2027) ── -->
   <div class="stage stage-current" style="--node-color:#c9a96e;--node-glow:rgba(201,169,110,.45)">
     <div class="stage-card">
       <span class="you-badge"><span class="you-dot"></span> You are here now</span>
-      <div class="card-year">1st Year · 2024–2025</div>
+      <div class="card-year">1st Year · 2026–2027</div>
       <div class="card-rank">BSMarT First Year Cadet</div>
       <div class="card-title">The Beginning of Everything ⭐</div>
-      <div class="card-desc">Foundation year — where every great captain starts. Focus on your basics, make friends, survive Math, and get used to waking up early. This year shapes your whole mindset.</div>
-      <div class="subjects-label">What you'll study</div>
+      <div class="card-desc">This is where your story as a mariner starts. Focus on your foundations, survive Math, make good friends, and get used to waking up early. This year shapes your whole mindset as a future officer.</div>
+      <div class="subjects-label">What you will study</div>
       <div class="subjects-list">
         <span class="subject-tag">Maritime English</span>
         <span class="subject-tag">Trigonometry</span>
@@ -288,16 +243,16 @@
         <span class="subject-tag">Physics for Mariners</span>
         <span class="subject-tag">Physical Education</span>
         <span class="subject-tag">NSTP</span>
-        <span class="subject-tag">Computer Apps</span>
+        <span class="subject-tag">Computer Applications</span>
         <span class="subject-tag">Basic Seamanship</span>
       </div>
       <div class="card-pills">
-        <span class="pill pill-hot">The Start 🌱</span>
+        <span class="pill pill-hot">Your First Step 🌱</span>
         <span class="pill pill-cert">No License Yet — Just Dreams</span>
       </div>
       <div class="kuromi-tip">
         <span class="kt-emoji">🖤</span>
-        <span>"Huwag mahiyang magtanong sa klase. Every question you ask now is a life you protect later at sea." — Prof. Kuromi</span>
+        <span>"Huwag mahiyang magtanong sa klase. Every question you ask now is a life you protect later at sea. Start strong!" — Prof. Kuromi</span>
       </div>
     </div>
     <div class="stage-node">
@@ -307,7 +262,7 @@
     <div class="stage-empty"></div>
   </div>
 
-  <!-- ── YEAR 2 ── -->
+  <!-- ── YEAR 2 (2027–2028) ── -->
   <div class="stage" style="--node-color:#7ec8f7;--node-glow:rgba(126,200,247,.3)">
     <div class="stage-empty"></div>
     <div class="stage-node">
@@ -315,11 +270,11 @@
       <div class="node-line"></div>
     </div>
     <div class="stage-card">
-      <div class="card-year">2nd Year · 2025–2026</div>
+      <div class="card-year">2nd Year · 2027–2028</div>
       <div class="card-rank">BSMarT Second Year Cadet</div>
       <div class="card-title">Navigation Begins 🧭</div>
-      <div class="card-desc">You start learning how to actually read the ocean. Charts, stars, and weather become your language. STCW Basic Safety Training also starts this year — this one is required globally.</div>
-      <div class="subjects-label">What you'll study</div>
+      <div class="card-desc">You start learning how to actually read the ocean. Charts, stars, and weather become your language. STCW Basic Safety Training kicks in this year — it is required on every vessel in the world.</div>
+      <div class="subjects-label">What you will study</div>
       <div class="subjects-list">
         <span class="subject-tag">Chart Navigation</span>
         <span class="subject-tag">Terrestrial Navigation</span>
@@ -328,7 +283,7 @@
         <span class="subject-tag">Marine Engineering Basics</span>
         <span class="subject-tag">Cargo Handling Intro</span>
         <span class="subject-tag">STCW Basic Safety</span>
-        <span class="subject-tag">Swimming & Survival</span>
+        <span class="subject-tag">Swimming &amp; Survival</span>
       </div>
       <div class="card-pills">
         <span class="pill pill-cert">STCW Basic Safety Training</span>
@@ -337,24 +292,24 @@
       </div>
       <div class="kuromi-tip">
         <span class="kt-emoji">🖤</span>
-        <span>"Chart work is annoying at first. Draw every line clean — sloppy charts cost lives. Take your time on this one, promise!" — Prof. Kuromi</span>
+        <span>"Chart work is annoying at first — draw every line clean. Sloppy charts cost lives. Take your time on this one, I promise it will click." — Prof. Kuromi</span>
       </div>
     </div>
   </div>
 
-  <!-- ── YEAR 3 ── -->
+  <!-- ── YEAR 3 (2028–2029) ── -->
   <div class="stage" style="--node-color:#a78bfa;--node-glow:rgba(167,139,250,.3)">
     <div class="stage-card">
-      <div class="card-year">3rd Year · 2026–2027</div>
+      <div class="card-year">3rd Year · 2028–2029</div>
       <div class="card-rank">BSMarT Third Year Cadet</div>
       <div class="card-title">Advanced Bridge Operations 🌐</div>
-      <div class="card-desc">This is where it gets real and intense. RADAR, GMDSS, celestial navigation, Rules of the Road. You'll also start practicing watchkeeping procedures — thinking like an officer.</div>
-      <div class="subjects-label">What you'll study</div>
+      <div class="card-desc">This is where it gets intense. RADAR, GMDSS, celestial navigation, Rules of the Road. You will start practicing watchkeeping like a real officer. This is the year that separates who is serious from who is not.</div>
+      <div class="subjects-label">What you will study</div>
       <div class="subjects-list">
         <span class="subject-tag">Celestial Navigation</span>
         <span class="subject-tag">RADAR / ARPA</span>
         <span class="subject-tag">GMDSS Communications</span>
-        <span class="subject-tag">COLREGS (Rules of the Road)</span>
+        <span class="subject-tag">COLREGS Rules of the Road</span>
         <span class="subject-tag">Ship Stability II</span>
         <span class="subject-tag">Cargo Operations</span>
         <span class="subject-tag">Watchkeeping Procedures</span>
@@ -368,7 +323,7 @@
       </div>
       <div class="kuromi-tip">
         <span class="kt-emoji">🖤</span>
-        <span>"COLREGS — memorize them all. On the ocean, you can't Google the rules. I know it's a lot. Kaya mo 'yan." — Prof. Kuromi</span>
+        <span>"Memorize COLREGS — all of them. You cannot Google the rules in the middle of the ocean. Sobrang dami, I know. Kaya mo yan." — Prof. Kuromi</span>
       </div>
     </div>
     <div class="stage-node">
@@ -378,7 +333,7 @@
     <div class="stage-empty"></div>
   </div>
 
-  <!-- ── YEAR 4 / OJT ── -->
+  <!-- ── YEAR 4 / OJT (2029–2030) ── -->
   <div class="stage" style="--node-color:#86efac;--node-glow:rgba(134,239,172,.3)">
     <div class="stage-empty"></div>
     <div class="stage-node">
@@ -386,50 +341,50 @@
       <div class="node-line"></div>
     </div>
     <div class="stage-card">
-      <div class="card-year">4th Year · 2027–2028</div>
+      <div class="card-year">4th Year · 2029–2030</div>
       <div class="card-rank">Senior Cadet — Shipboard OJT</div>
-      <div class="card-title">First Time at Sea for Real 🌊</div>
-      <div class="card-desc">6–12 months aboard a real vessel as a Deck Cadet. No more simulations — actual ocean, actual ship, actual responsibility. You'll keep watch, log sea service hours, and earn your first salary at sea. This year will change you forever.</div>
-      <div class="subjects-label">Skills you'll develop onboard</div>
+      <div class="card-title">Your First Time at Sea for Real 🌊</div>
+      <div class="card-desc">6 to 12 months aboard a real vessel as a Deck Cadet. No more simulations — actual ocean, actual ship, actual responsibility. You will log sea service hours and earn your first salary at sea. This year will change you forever.</div>
+      <div class="subjects-label">Skills you develop onboard</div>
       <div class="subjects-list">
         <span class="subject-tag">Bridge Watch Duties</span>
-        <span class="subject-tag">Cargo Lashing & Securing</span>
-        <span class="subject-tag">Lifeboat & Rescue Ops</span>
+        <span class="subject-tag">Cargo Lashing &amp; Securing</span>
+        <span class="subject-tag">Lifeboat &amp; Rescue Ops</span>
         <span class="subject-tag">Engine Room Familiarization</span>
         <span class="subject-tag">Logbook Entries</span>
         <span class="subject-tag">Navigation Planning</span>
-        <span class="subject-tag">Mooring & Anchoring</span>
+        <span class="subject-tag">Mooring &amp; Anchoring</span>
         <span class="subject-tag">Seafarer Survival</span>
       </div>
       <div class="card-pills">
-        <span class="pill pill-earn">First Sea Pay 💰</span>
+        <span class="pill pill-earn">Your First Sea Pay 💰</span>
         <span class="pill pill-cert">Sea Service Record Book</span>
         <span class="pill pill-hot">Real Life Starts Here 🌊</span>
       </div>
       <div class="kuromi-tip">
         <span class="kt-emoji">🖤</span>
-        <span>"Malamig ang dagat. Malayo sa bahay. Mahirap. Pero 'pag nakita mo ang sunrise sa gitna ng karagatan — you'll know exactly why you chose this. Hang in there." — Prof. Kuromi</span>
+        <span>"Malamig ang dagat. Malayo sa bahay. Mahirap. Pero pag nakita mo ang sunrise sa gitna ng karagatan — you will know exactly why you chose this. Hang in there." — Prof. Kuromi</span>
       </div>
     </div>
   </div>
 
-  <!-- ── LICENSURE ── -->
+  <!-- ── LICENSURE (2030–2031) ── -->
   <div class="stage" style="--node-color:#fda4af;--node-glow:rgba(253,164,175,.3)">
     <div class="stage-card">
-      <div class="card-year">2028–2029</div>
+      <div class="card-year">2030–2031</div>
       <div class="card-rank">PRC Board Examination</div>
       <div class="card-title">MARINA Licensure — OICNW 📜</div>
-      <div class="card-desc">The exam that makes everything official. Pass the Philippine Maritime Authority and PRC board to become a licensed Officer in Charge of a Navigation Watch. This is the key that opens every door on every ocean in the world.</div>
+      <div class="card-desc">The exam that makes everything official. Pass the PRC and MARINA board to become a licensed Officer in Charge of a Navigation Watch. This license opens every door on every ocean in the world.</div>
       <div class="subjects-label">Board exam coverage</div>
       <div class="subjects-list">
-        <span class="subject-tag">Navigation & Watchkeeping</span>
+        <span class="subject-tag">Navigation &amp; Watchkeeping</span>
         <span class="subject-tag">Ship Stability</span>
         <span class="subject-tag">Cargo Handling</span>
         <span class="subject-tag">COLREGS</span>
         <span class="subject-tag">Meteorology</span>
-        <span class="subject-tag">Maritime Law & Policy</span>
+        <span class="subject-tag">Maritime Law &amp; Policy</span>
         <span class="subject-tag">GMDSS Operations</span>
-        <span class="subject-tag">Ship Safety & Security</span>
+        <span class="subject-tag">Ship Safety &amp; Security</span>
       </div>
       <div class="card-pills">
         <span class="pill pill-cert">PRC License — Deck Officer</span>
@@ -438,7 +393,7 @@
       </div>
       <div class="kuromi-tip">
         <span class="kt-emoji">🖤</span>
-        <span>"Review like your career depends on it — because it does. Sleep well the night before. Eat breakfast. You've studied this for 4 years. Trust yourself." — Prof. Kuromi</span>
+        <span>"Review like your career depends on it — because it does. Sleep the night before. Eat breakfast. You have studied this for 4 years. Trust yourself completely." — Prof. Kuromi</span>
       </div>
     </div>
     <div class="stage-node">
@@ -448,7 +403,7 @@
     <div class="stage-empty"></div>
   </div>
 
-  <!-- ── 3RD OFFICER ── -->
+  <!-- ── 3RD OFFICER (2031–2033) ── -->
   <div class="stage" style="--node-color:#86efac;--node-glow:rgba(134,239,172,.3)">
     <div class="stage-empty"></div>
     <div class="stage-node">
@@ -456,43 +411,43 @@
       <div class="node-line"></div>
     </div>
     <div class="stage-card">
-      <div class="card-year">2029–2031</div>
+      <div class="card-year">2031–2033</div>
       <div class="card-rank">3rd Officer</div>
-      <div class="card-title">First Official Rank at Sea 🟢</div>
-      <div class="card-desc">Your first officer stripe. Responsible for firefighting equipment, safety drills, lifeboat operations, and bridge watch. You are now a real professional mariner. International vessels, international pay.</div>
-      <div class="subjects-label">Responsibilities & training</div>
+      <div class="card-title">Your First Official Rank at Sea 🟢</div>
+      <div class="card-desc">Your first officer stripe. You are now responsible for firefighting equipment, safety drills, lifeboat operations, and bridge watch. You are a real professional mariner. International vessel, international pay — you earned this.</div>
+      <div class="subjects-label">Your responsibilities</div>
       <div class="subjects-list">
         <span class="subject-tag">Safety Equipment Officer</span>
-        <span class="subject-tag">Fire & Abandon Ship Drills</span>
-        <span class="subject-tag">Navigation Watch (0000–0400)</span>
+        <span class="subject-tag">Fire &amp; Abandon Ship Drills</span>
+        <span class="subject-tag">Navigation Watch 0000–0400</span>
         <span class="subject-tag">Chart Corrections</span>
         <span class="subject-tag">ECDIS Operations</span>
         <span class="subject-tag">Medical Assistance Onboard</span>
       </div>
       <div class="card-pills">
         <span class="pill pill-earn">₱80k–₱130k / mo 💰</span>
-        <span class="pill pill-cert">1st Stripe</span>
+        <span class="pill pill-cert">1 Stripe</span>
         <span class="pill pill-hot">Officer na! 🎉</span>
       </div>
       <div class="kuromi-tip">
         <span class="kt-emoji">🖤</span>
-        <span>"The crew will test you when you're new. Especially as a woman. Be firm, be fair, be competent — and they will respect you. Always." — Prof. Kuromi</span>
+        <span>"The crew will test you when you are new — especially as a woman. Be firm, be fair, be competent. They will respect you. You just have to show up first." — Prof. Kuromi</span>
       </div>
     </div>
   </div>
 
-  <!-- ── 2ND OFFICER ── -->
+  <!-- ── 2ND OFFICER (2033–2036) ── -->
   <div class="stage" style="--node-color:#fbbf24;--node-glow:rgba(251,191,36,.3)">
     <div class="stage-card">
-      <div class="card-year">2031–2034</div>
+      <div class="card-year">2033–2036</div>
       <div class="card-rank">2nd Officer</div>
-      <div class="card-title">The Navigator 🗺️</div>
-      <div class="card-desc">Two stripes. You are now the ship's primary navigator — responsible for voyage planning, maintaining charts, GPS systems, medical care onboard, and safety certificates. People on the bridge look to you.</div>
-      <div class="subjects-label">Key responsibilities</div>
+      <div class="card-title">You Are the Navigator 🗺️</div>
+      <div class="card-desc">Two stripes. You are now the ship's primary navigator — responsible for voyage planning, maintaining charts, GPS systems, and medical care onboard. People on the bridge look to you. You have grown so much from where you started.</div>
+      <div class="subjects-label">Your responsibilities</div>
       <div class="subjects-list">
         <span class="subject-tag">Voyage Planning</span>
-        <span class="subject-tag">Chart & Publication Updates</span>
-        <span class="subject-tag">Ship's Medical Officer</span>
+        <span class="subject-tag">Chart &amp; Publication Updates</span>
+        <span class="subject-tag">Ship Medical Officer</span>
         <span class="subject-tag">Safety Management System</span>
         <span class="subject-tag">SOLAS Certificate Mgmt</span>
         <span class="subject-tag">ECDIS / GPS Systems</span>
@@ -505,7 +460,7 @@
       </div>
       <div class="kuromi-tip">
         <span class="kt-emoji">🖤</span>
-        <span>"At this rank, how you plan the voyage determines if everyone gets home safely. Plan twice, sail once. You've got this." — Prof. Kuromi</span>
+        <span>"How you plan the voyage determines if everyone gets home safely. Plan twice, sail once. You have the discipline for this — I have seen it since day one." — Prof. Kuromi</span>
       </div>
     </div>
     <div class="stage-node">
@@ -515,7 +470,7 @@
     <div class="stage-empty"></div>
   </div>
 
-  <!-- ── CHIEF OFFICER ── -->
+  <!-- ── CHIEF OFFICER (2036–2040) ── -->
   <div class="stage" style="--node-color:#f9a8d4;--node-glow:rgba(249,168,212,.35)">
     <div class="stage-empty"></div>
     <div class="stage-node">
@@ -523,10 +478,10 @@
       <div class="node-line"></div>
     </div>
     <div class="stage-card">
-      <div class="card-year">2034–2038</div>
+      <div class="card-year">2036–2040</div>
       <div class="card-rank">Chief Officer / Chief Mate</div>
       <div class="card-title">Second in Command ⭐</div>
-      <div class="card-desc">Three stripes. You run the entire deck department. Cargo operations, crew management, stability calculations, safety systems. The Captain's right hand. This rank demands leadership, not just knowledge.</div>
+      <div class="card-desc">Three stripes. You run the entire deck department. Cargo operations, crew management, stability calculations, safety systems. You are the Captain's right hand. This rank demands leadership — not just knowledge.</div>
       <div class="subjects-label">What you lead</div>
       <div class="subjects-list">
         <span class="subject-tag">Cargo Loading / Stability</span>
@@ -544,28 +499,27 @@
       </div>
       <div class="kuromi-tip">
         <span class="kt-emoji">🖤</span>
-        <span>"You speak for the Captain when the Captain is resting. Every decision you make now has her name on it too. Lead like you own the ocean — because soon, you will." — Prof. Kuromi</span>
+        <span>"You speak for the Captain when she is resting. Lead like you own the ocean — because soon, you will." — Prof. Kuromi</span>
       </div>
     </div>
   </div>
 
-  <!-- ── MASTER / CAPTAIN ── -->
+  <!-- ── CAPTAIN (2040+) ── -->
   <div class="stage" style="--node-color:#e8c97a;--node-glow:rgba(232,201,122,.55)">
     <div class="stage-card">
-      <div class="card-year">2038 and Beyond</div>
+      <div class="card-year">2040 and Beyond</div>
       <div class="card-rank">Master Mariner — CAPTAIN</div>
-      <div class="card-title">Full Command of the Vessel 👑</div>
-      <div class="card-desc">Four stripes. Absolute authority. Full command of ship, crew, cargo, and safety across every ocean. Filipino women captains are rare — and powerful. This is the dream. This is what mama always believed you could reach.</div>
+      <div class="card-title">Full Command. Your Ocean. 👑</div>
+      <div class="card-desc">Four stripes. Absolute authority. Full command of your vessel, your crew, your cargo, and the safety of every person on that ship. Filipino women captains are rare — and powerful. This is the dream mama always believed you could reach.</div>
       <div class="subjects-label">Your command covers</div>
       <div class="subjects-list">
         <span class="subject-tag">Full Vessel Command</span>
         <span class="subject-tag">Emergency Decision Making</span>
         <span class="subject-tag">International Maritime Law</span>
-        <span class="subject-tag">Crew Welfare & Discipline</span>
+        <span class="subject-tag">Crew Welfare &amp; Discipline</span>
         <span class="subject-tag">Company Liaison</span>
-        <span class="subject-tag">Port Authorities Relations</span>
+        <span class="subject-tag">Port Authority Relations</span>
         <span class="subject-tag">Incident Investigation</span>
-        <span class="subject-tag">Deviation Reporting</span>
       </div>
       <div class="card-pills">
         <span class="pill pill-earn">₱500k–₱900k / mo 💰</span>
@@ -574,7 +528,7 @@
       </div>
       <div class="kuromi-tip">
         <span class="kt-emoji">🖤</span>
-        <span>"When they call you 'Captain' for the first time — remember this roadmap. Remember year 1. Remember every hard night you pushed through. You earned every single letter of that title." — Prof. Kuromi</span>
+        <span>"When they call you Captain for the first time — remember Year 1. Remember every hard night. Remember why you started. You earned every single letter of that title." — Prof. Kuromi</span>
       </div>
     </div>
     <div class="stage-node">
@@ -589,17 +543,18 @@
     <div class="stage-empty"></div>
     <div class="stage-node">
       <div class="node-dot" style="font-size:1.5rem">👑</div>
+      <div class="node-line"></div>
     </div>
     <div class="stage-card">
-      <div class="card-year">The Ceiling — 2045+</div>
+      <div class="card-year">The Ceiling · 2048+</div>
       <div class="card-rank">Fleet Commander / Marine Superintendent</div>
-      <div class="card-title">She Commands the Fleet 🌏</div>
-      <div class="card-desc">The absolute top. Shore-based executive managing multiple vessels, overseeing captains, mentoring future officers. She's no longer just sailing the ocean — she's directing it. Mama's dream, fully realized.</div>
+      <div class="card-title">You Command the Fleet 🌏</div>
+      <div class="card-desc">The absolute top. Shore-based executive managing multiple vessels, overseeing captains, mentoring the next generation of officers. You are no longer just sailing the ocean — you are directing it. This is what mama dreamed for you, fully realized.</div>
       <div class="subjects-label">Executive responsibilities</div>
       <div class="subjects-list">
         <span class="subject-tag">Fleet Safety Oversight</span>
         <span class="subject-tag">Operational Strategy</span>
-        <span class="subject-tag">Budget & Resources</span>
+        <span class="subject-tag">Budget &amp; Resources</span>
         <span class="subject-tag">Officer Development</span>
         <span class="subject-tag">Regulatory Compliance</span>
         <span class="subject-tag">Crisis Management</span>
@@ -610,57 +565,84 @@
       </div>
       <div class="kuromi-tip">
         <span class="kt-emoji">🖤</span>
-        <span>"This is where the girl who started at 1st year BSMarT teaches the next generation. You came full circle. Mama is proud. I'm proud. Now go rest, Captain." — Prof. Kuromi 🖤</span>
+        <span>"This is where the girl who started at 1st year BSMarT teaches the next generation. You came full circle. Mama is proud. I am proud. Now go rest, Captain." — Prof. Kuromi 🖤</span>
       </div>
     </div>
   </div>
 
+  <!-- ── WEDDING (THE FINALE) ── -->
+  <div class="stage stage-wedding" style="--node-color:#fb7185;--node-glow:rgba(251,113,133,.5)">
+    <div class="stage-card">
+      <div class="card-year">After All of This</div>
+      <div class="card-rank">Our Wedding Day 💍</div>
+      <div class="wedding-card">
+        <div class="wedding-hearts">💍 🌸 💛 🌸 💍</div>
+        <div class="wedding-title">"At the end of every sea, I will be waiting for you."</div>
+        <div class="wedding-desc">
+          You chased your dreams across every ocean. You earned every stripe, every rank, every title. And when you finally come home — I will be there.<br><br>
+          Not as someone who held you back. But as someone who watched you become everything you were always meant to be, and loved every single version of you along the way.<br><br>
+          This is not just a roadmap to Captain. This is a roadmap to us.
+        </div>
+        <div class="card-pills" style="justify-content:flex-start">
+          <span class="pill pill-wed">Our Day 💍</span>
+          <span class="pill pill-wed">Forever Starts Here 🌸</span>
+          <span class="pill pill-wed">The Best Part of the Journey</span>
+        </div>
+        <div class="wedding-from">— Written for you, by Rance 💛</div>
+      </div>
+      <div class="kuromi-tip" style="margin-top:.8rem;border-color:rgba(251,113,133,.3);background:rgba(251,113,133,.06)">
+        <span class="kt-emoji">🌸</span>
+        <span>"Even Prof. Kuromi cried at this part. Okay fine — I did not cry. My eye just leaked a little. Congratulations, Captain. You deserve this love too." — Prof. Kuromi 🖤</span>
+      </div>
+    </div>
+    <div class="stage-node">
+      <div class="node-dot">💍</div>
+    </div>
+    <div class="stage-empty"></div>
+  </div>
+
 </div>
 
-<!-- TOP FLAG -->
+<!-- FLAG -->
 <div class="top-flag">
   <div class="flag-inner">
     <div class="flag-emoji">⚓</div>
-    <div class="flag-title">She will get here.</div>
-    <p class="flag-sub">The ocean is big — but so is she. Every wave she crosses brings her one step closer. 💛</p>
+    <div class="flag-title">You will get here.</div>
+    <p class="flag-sub">The ocean is big — but so are you. Every wave you cross brings you one step closer. And I will be here at every port. 💛</p>
   </div>
 </div>
 
-<!-- CLOSING KUROMI -->
+<!-- FINAL KUROMI -->
 <div style="position:relative;z-index:2;display:flex;justify-content:center;padding:1.5rem 1.5rem 0;max-width:600px;margin:0 auto;">
   <div style="background:rgba(124,58,237,.1);border:1.5px solid rgba(124,58,237,.3);border-radius:16px;padding:1.4rem 1.6rem;display:flex;gap:1rem;align-items:center;">
-    <span style="font-size:2rem;animation:wiggle 2.5s ease-in-out infinite;display:inline-block">🖤</span>
+    <span class="wiggle" style="font-size:2rem">🖤</span>
     <div>
-      <div style="font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:#a78bfa;margin-bottom:.4rem;font-weight:600;">Prof. Kuromi's Final Words</div>
-      <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:.95rem;color:var(--ivory);line-height:1.7;">"Take your time. You can do it. At kahit ilang beses kang mapagod — magtapos ka. Kasi worth it ang lahat ng ito. Para sa'yo. Para kay mama. 🖤🌊"</div>
+      <div style="font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:#a78bfa;margin-bottom:.4rem;font-weight:600;">Prof. Kuromi — Final Words</div>
+      <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:.95rem;color:var(--ivory);line-height:1.7;">"Take your time. You can do it. At kahit ilang beses kang mapagod — magtapos ka. Kasi worth it ang lahat ng ito. Para sa'yo. Para kay mama. At para sa taong naghintay sa'yo. 🖤🌊"</div>
     </div>
   </div>
 </div>
 
 <!-- CLOSING -->
 <div class="closing">
-  <p class="closing-quote">"She is not just going to sea — she is going to conquer it."</p>
-  <div class="closing-from">— From the one who believes in her most 💛</div>
+  <p class="closing-quote">"You are not just going to sea — you are going to conquer it. And I will be at the shore when you come home."</p>
+  <div class="closing-from">— Written with love, by Rance 💛</div>
 </div>
 
 <script>
 (function(){
   const c=document.getElementById('stars'),ctx=c.getContext('2d');
-  let W,H,stars=[];
+  let W,H,st=[];
   function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight}
   resize();window.addEventListener('resize',resize);
-  for(let i=0;i<130;i++)stars.push({x:Math.random(),y:Math.random(),r:Math.random()*1.4+.3,a:Math.random()*.5+.1,p:Math.random()*Math.PI*2,ps:Math.random()*.012+.004});
-  function loop(){
+  for(let i=0;i<130;i++)st.push({x:Math.random(),y:Math.random(),r:Math.random()*1.4+.3,a:Math.random()*.5+.1,p:Math.random()*Math.PI*2,ps:Math.random()*.012+.004});
+  (function loop(){
     ctx.clearRect(0,0,W,H);
-    for(const s of stars){s.p+=s.ps;const a=s.a*(0.6+0.4*Math.sin(s.p));ctx.beginPath();ctx.arc(s.x*W,s.y*H,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,255,255,${a})`;ctx.fill();}
+    for(const s of st){s.p+=s.ps;const a=s.a*(.6+.4*Math.sin(s.p));ctx.beginPath();ctx.arc(s.x*W,s.y*H,s.r,0,Math.PI*2);ctx.fillStyle='rgba(255,255,255,'+a+')';ctx.fill();}
     requestAnimationFrame(loop);
-  }
-  loop();
+  })();
 })();
-
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),60);io.unobserve(e.target);}});
-},{threshold:.1});
+const io=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){setTimeout(()=>x.target.classList.add('visible'),60);io.unobserve(x.target);}});},{threshold:.1});
 document.querySelectorAll('.stage').forEach(s=>io.observe(s));
 </script>
 </body>
