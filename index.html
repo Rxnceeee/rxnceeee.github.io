@@ -13,7 +13,7 @@
 
   <!-- ── NAV ── -->
   <nav id="navbar">
-    <span class="nav-logo">rkr.dev</span>
+    <span class="nav-logo">~/rkr.dev</span>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
@@ -46,6 +46,7 @@
 
       <div class="hero-tag fade-up">
         <span class="dot"></span>
+        <span class="hero-tag-code">200 OK</span>
         Available for work
       </div>
 
@@ -99,7 +100,7 @@
       <div class="about-grid">
 
         <div class="about-text fade-up">
-          <p class="section-label">About</p>
+          <p class="section-label"><span class="route-verb get">GET</span>/about</p>
           <h2 class="section-title">Building with purpose,<br>learning with intent.</h2>
           <div class="section-divider"></div>
           <p>
@@ -153,7 +154,7 @@
   <!-- ══════════════════════════════════════════ -->
   <section id="skills">
     <div class="container">
-      <p class="section-label fade-up">Skills</p>
+      <p class="section-label fade-up"><span class="route-verb get">GET</span>/skills</p>
       <h2 class="section-title fade-up">Tech I work with</h2>
       <div class="section-divider fade-up"></div>
 
@@ -235,7 +236,7 @@
     <div class="container">
       <div class="projects-header">
         <div>
-          <p class="section-label fade-up">Projects</p>
+          <p class="section-label fade-up"><span class="route-verb get">GET</span>/projects</p>
           <h2 class="section-title fade-up">Things I've built</h2>
           <div class="section-divider fade-up" style="margin-bottom:0"></div>
         </div>
@@ -352,7 +353,7 @@
   <!-- ══════════════════════════════════════════ -->
   <section id="achievements">
     <div class="container">
-      <p class="section-label fade-up">Achievements</p>
+      <p class="section-label fade-up"><span class="route-verb get">GET</span>/achievements</p>
       <h2 class="section-title fade-up">Competition Results</h2>
       <div class="section-divider fade-up"></div>
 
@@ -388,7 +389,7 @@
       <div class="contact-grid">
 
         <div>
-          <p class="section-label fade-up">Contact</p>
+          <p class="section-label fade-up"><span class="route-verb post">POST</span>/contact</p>
           <h2 class="section-title fade-up">Let's work<br>together.</h2>
           <div class="section-divider fade-up"></div>
           <p class="fade-up" style="color:var(--text-muted);font-size:0.9rem;line-height:1.75;max-width:320px;font-weight:300;margin-bottom:0">
@@ -497,11 +498,13 @@
 
     hamburger.addEventListener('click', () => {
       mobileNav.classList.toggle('open');
+      hamburger.classList.toggle('active');
     });
 
     mobLinks.forEach(link => {
       link.addEventListener('click', () => {
         mobileNav.classList.remove('open');
+        hamburger.classList.remove('active');
       });
     });
 
